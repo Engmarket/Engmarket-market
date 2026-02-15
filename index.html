@@ -13,24 +13,30 @@
         .ticker-item { padding: 0 25px; font-weight: bold; font-size: 0.9rem; border-left: 1px dashed #444; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        .lang-btn { position: absolute; left: 15px; top: 10px; background: var(--accent); color: white; border: none; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 1100; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .lang-btn { position: absolute; left: 15px; top: 10px; background: var(--accent); color: white; border: none; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 1100; }
 
         header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; position: relative; }
         .search-container { max-width: 600px; margin: 20px auto 0; }
         #mainSearch { width: 100%; padding: 12px 20px; border-radius: 25px; border: none; font-size: 1rem; outline: none; box-sizing: border-box; }
 
         .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        .section-title { text-align: center; color: var(--primary); margin-bottom: 30px; font-size: 1.8rem; border-bottom: 3px solid var(--accent); display: table; margin: 0 auto 30px; padding-bottom: 10px; }
+        .section-title { text-align: center; color: var(--primary); margin-bottom: 25px; font-size: 1.8rem; border-bottom: 3px solid var(--accent); display: table; margin: 0 auto 25px; padding-bottom: 10px; }
 
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-bottom: 50px; }
-        .category-card { background: white; padding: 25px 15px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #eee; min-height: 80px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--primary); }
-        .category-card:hover { transform: translateY(-5px); border-color: var(--accent); background: #fffdf9; }
+        /* قسم الشركات (الإعلانات) */
+        .ad-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; margin-bottom: 40px; }
+        .ad-card { background: #fff8e1; border: 2px solid var(--accent); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .ad-info h4 { margin: 0; color: var(--primary); font-size: 1.1rem; }
+        .ad-info p { margin: 5px 0 0; color: #666; font-size: 0.9rem; }
+        .wa-link { background: var(--success); color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 50px; }
+        .category-card { background: white; padding: 20px 10px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eee; font-weight: bold; color: var(--primary); }
+        .category-card:hover { transform: translateY(-3px); border-color: var(--accent); background: #fffdf9; }
 
         .order-panel { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid var(--success); }
         input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; }
         .btn-whatsapp { background: var(--success); color: white; border: none; padding: 18px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 1.2rem; font-weight: bold; transition: 0.3s; }
-        .btn-whatsapp:hover { background: #219150; }
-
+        
         .footer { text-align: center; padding: 40px; color: #888; font-size: 0.9rem; }
     </style>
 </head>
@@ -41,11 +47,10 @@
     <div class="ticker-wrap">
         <div class="ticker">
             <span class="ticker-item">🟡 Gold (21k): $72.40</span>
-            <span class="ticker-item">⚪ Silver: $0.92/g</span>
             <span class="ticker-item">💵 USD/LBP: 89,500 L.L</span>
-            <span class="ticker-item">⛽ Gasoline: 1,650,000 L.L</span>
             <span class="ticker-item">🏗️ Steel (Rebar): $715/Ton</span>
             <span class="ticker-item">🧱 Cement: $145/Ton</span>
+            <span class="ticker-item">⛽ Gasoline: 1,650,000 L.L</span>
         </div>
     </div>
 
@@ -58,27 +63,31 @@
     </header>
 
     <div class="container">
-        <h2 class="section-title" id="secTitle">الأقسام والخدمات التخصصية</h2>
+        <h2 class="section-title" id="adTitle">الشركات المعتمدة والمميزة</h2>
+        <div class="ad-container" id="adBox">
+            </div>
+
+        <h2 class="section-title" id="secTitle">كافة التخصصات الهندسية</h2>
         <div class="grid-container" id="grid"></div>
 
-        <h2 class="section-title" id="orderTitle">طلب بضاعة للمهندسين والمقاولين</h2>
+        <h2 class="section-title" id="orderTitle">نموذج طلب بضاعة سريع</h2>
         <div class="order-panel">
-            <input type="text" id="uName" placeholder="الاسم الكامل">
-            <select id="uRole">
-                <option value="Engineer">مهندس / Engineer</option>
-                <option value="Contractor">مقاول / Contractor</option>
-                <option value="Client">عميل / Client</option>
-            </select>
+            <input type="text" id="uName" placeholder="الاسم الكامل / Name">
             <select id="targetCat"></select>
-            <input type="tel" id="uPhone" placeholder="00961xxxxxxxx">
             <textarea id="uDetails" rows="4" placeholder="تفاصيل الطلب..."></textarea>
             <button class="btn-whatsapp" onclick="sendWA()" id="waBtn">🟢 إرسال عبر واتساب</button>
         </div>
     </div>
 
-    <footer class="footer">© 2026 Metalco Steel | WhatsApp: 70822806</footer>
+    <footer class="footer">© 2026 Metalco Steel | Admin: 70822806</footer>
 
     <script>
+        const companies = [
+            { nameAr: "شركة ميتالكو ستيل", nameEn: "Metalco Steel Co.", catAr: "حديد البناء", catEn: "Construction Steel", phone: "03761784", descAr: "صناعة وتجارة كافة أنواع الحديد", descEn: "Steel Industry & Trading" },
+            { nameAr: "شركة صقر للأخشاب", nameEn: "Sakr Wood", catAr: "أخشاب وقشرة", catEn: "Wood & Veneer", phone: "03000000", descAr: "تجارة الأخشاب والمواد الأولية", descEn: "Wood & Raw Materials Trading" },
+            { nameAr: "شركة الميدان للألمنيوم", nameEn: "Al Midan Aluminum", catAr: "ألمنيوم و PVC", catEn: "Aluminum & PVC", phone: "03000000", descAr: "تجارة الألمنيوم والإكسسوارات", descEn: "Aluminum & Accessories" }
+        ];
+
         const catsAr = ["حديد البناء", "باطون جاهز", "رخام وغرانيت", "قص ليزر", "قص راوتر", "أخشاب وقشرة", "ألمنيوم و PVC", "أحجار ورمل", "كهرباء وإنارة", "طاقة شمسية", "تكييف وتدفئة", "مصاعد", "دهانات وعزل", "جفصين وديكور", "أدوات صحية", "مطابخ", "مفروشات", "تنسيق حدائق", "مكاتب هندسية", "مقاولات", "ألواح كوبوند", "بلاستيك وأكريليك", "آرمات إعلانية", "خرضوات وعدة", "زجاج ومرايا", "باركيه وورق جدران", "أقمشة وإسفنج", "معدات ثقيلة", "ترابة وسمنت", "معدات صناعية"];
         const catsEn = ["Construction Steel", "Ready Mix Concrete", "Marble & Granite", "Laser Cutting", "Router Cutting", "Wood & Veneer", "Aluminum & PVC", "Stone & Sand", "Electricity & Lighting", "Solar Energy", "HVAC", "Elevators", "Paint & Insulation", "Gypsum & Decor", "Sanitary Ware", "Kitchens", "Furniture", "Landscaping", "Engineering Offices", "Contracting", "Alucobond/ACP", "Plastic & Acrylic", "Signage", "Hardware & Tools", "Glass & Mirrors", "Parquet & Wallpaper", "Fabrics & Foam", "Heavy Equipment", "Cement", "Industrial Equipment"];
 
@@ -87,16 +96,32 @@
         function render() {
             const grid = document.getElementById('grid');
             const select = document.getElementById('targetCat');
-            grid.innerHTML = ''; select.innerHTML = '';
+            const adBox = document.getElementById('adBox');
+            grid.innerHTML = ''; select.innerHTML = ''; adBox.innerHTML = '';
+            
             const list = lang === 'ar' ? catsAr : catsEn;
-            list.sort().forEach((c, i) => {
+            list.sort().forEach(c => {
                 let div = document.createElement('div');
                 div.className = 'category-card';
                 div.innerHTML = `<span>${c}</span>`;
-                div.onclick = () => { select.value = c; document.getElementById('uName').scrollIntoView(); };
+                div.onclick = () => { select.value = c; document.getElementById('orderTitle').scrollIntoView(); };
                 grid.appendChild(div);
                 let opt = document.createElement('option'); opt.value = c; opt.innerText = c;
                 select.appendChild(opt);
+            });
+
+            // عرض الشركات المميزة
+            companies.forEach(comp => {
+                let card = document.createElement('div');
+                card.className = 'ad-card';
+                card.innerHTML = `
+                    <div class="ad-info">
+                        <h4>${lang === 'ar' ? comp.nameAr : comp.nameEn}</h4>
+                        <p>${lang === 'ar' ? comp.descAr : comp.descEn}</p>
+                    </div>
+                    <a href="https://wa.me/961${comp.phone.substring(1)}" class="wa-link">${lang === 'ar' ? 'واتساب' : 'WhatsApp'}</a>
+                `;
+                adBox.appendChild(card);
             });
         }
 
@@ -104,10 +129,10 @@
             lang = lang === 'ar' ? 'en' : 'ar';
             document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
             document.getElementById('langBtn').innerText = lang === 'ar' ? 'English' : 'العربية';
-            document.getElementById('mainTitle').innerText = "METALCO STEEL SARL";
             document.getElementById('subTitle').innerText = lang === 'ar' ? "Eng Market - المنصة الهندسية والإنشائية الأولى في لبنان" : "Eng Market - Lebanon's Premier Engineering Platform";
-            document.getElementById('secTitle').innerText = lang === 'ar' ? "الأقسام والخدمات التخصصية" : "Professional Specialties & Services";
-            document.getElementById('orderTitle').innerText = lang === 'ar' ? "طلب بضاعة للمهندسين والمقاولين" : "Order Request for Engineers & Contractors";
+            document.getElementById('adTitle').innerText = lang === 'ar' ? "الشركات المعتمدة والمميزة" : "Featured & Verified Companies";
+            document.getElementById('secTitle').innerText = lang === 'ar' ? "كافة التخصصات الهندسية" : "All Engineering Specialties";
+            document.getElementById('orderTitle').innerText = lang === 'ar' ? "نموذج طلب بضاعة سريع" : "Quick Order Request Form";
             document.getElementById('waBtn').innerText = lang === 'ar' ? "🟢 إرسال عبر واتساب" : "🟢 Send via WhatsApp";
             render();
         }
@@ -123,8 +148,8 @@
             const name = document.getElementById('uName').value;
             const cat = document.getElementById('targetCat').value;
             const details = document.getElementById('uDetails').value;
-            if(!name || !details) return alert("Please fill name and details");
-            const msg = `*New Order - Eng Market*%0A*From:* ${name}%0A*Category:* ${cat}%0A*Details:* ${details}`;
+            if(!name || !details) return alert(lang === 'ar' ? "يرجى تعبئة الاسم والتفاصيل" : "Please fill name and details");
+            const msg = `*New Order*%0A*From:* ${name}%0A*Cat:* ${cat}%0A*Details:* ${details}`;
             window.open(`https://wa.me/96170822806?text=${msg}`, '_blank');
         }
 
