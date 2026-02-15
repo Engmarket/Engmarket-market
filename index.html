@@ -6,178 +6,129 @@
     <title>Eng Market | Metalco Steel</title>
     <style>
         :root { --primary: #2c3e50; --accent: #f39c12; --light: #f4f7f6; --success: #27ae60; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: var(--light); color: #333; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: var(--light); color: #333; transition: 0.3s; }
         
         .ticker-wrap { width: 100%; overflow: hidden; background: #1a1a1a; color: #fff; padding: 12px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--accent); }
         .ticker { display: flex; white-space: nowrap; animation: ticker 40s linear infinite; }
         .ticker-item { padding: 0 25px; font-weight: bold; font-size: 0.9rem; border-left: 1px dashed #444; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        header { background: var(--primary); color: white; padding: 30px 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .search-container { max-width: 600px; margin: 20px auto 0; position: relative; }
-        #mainSearch { width: 100%; padding: 12px 20px; border-radius: 25px; border: none; font-size: 1rem; outline: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .lang-btn { position: absolute; left: 15px; top: 10px; background: var(--accent); color: white; border: none; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 1100; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+
+        header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; position: relative; }
+        .search-container { max-width: 600px; margin: 20px auto 0; }
+        #mainSearch { width: 100%; padding: 12px 20px; border-radius: 25px; border: none; font-size: 1rem; outline: none; box-sizing: border-box; }
 
         .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
         .section-title { text-align: center; color: var(--primary); margin-bottom: 30px; font-size: 1.8rem; border-bottom: 3px solid var(--accent); display: table; margin: 0 auto 30px; padding-bottom: 10px; }
 
         .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-bottom: 50px; }
-        .category-card { background: white; padding: 25px 15px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #eee; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100px; }
-        .category-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-color: var(--accent); background: #fffdf9; }
-        .category-card span { font-weight: bold; font-size: 1rem; color: var(--primary); line-height: 1.4; }
+        .category-card { background: white; padding: 25px 15px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #eee; min-height: 80px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--primary); }
+        .category-card:hover { transform: translateY(-5px); border-color: var(--accent); background: #fffdf9; }
 
         .order-panel { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid var(--success); }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
-        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
-        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
-        .btn-whatsapp { background: var(--success); color: white; border: none; padding: 18px 30px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 1.2rem; font-weight: bold; margin-top: 20px; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .btn-whatsapp:hover { background: #219150; transform: scale(1.01); }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; }
+        .btn-whatsapp { background: var(--success); color: white; border: none; padding: 18px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 1.2rem; font-weight: bold; transition: 0.3s; }
+        .btn-whatsapp:hover { background: #219150; }
 
-        .footer { text-align: center; padding: 40px; color: #888; font-size: 0.9rem; line-height: 1.6; }
+        .footer { text-align: center; padding: 40px; color: #888; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
+    <button class="lang-btn" onclick="toggleLang()" id="langBtn">English</button>
+
     <div class="ticker-wrap">
         <div class="ticker">
-            <span class="ticker-item">🟡 ذهب (21k): $72.40</span>
-            <span class="ticker-item">⚪ فضة: $0.92/g</span>
-            <span class="ticker-item">💵 دولار: 89,500 L.L</span>
-            <span class="ticker-item">⛽ بنزين (95): 1,650,000 L.L</span>
-            <span class="ticker-item">🚜 مازوت: $780/kL</span>
-            <span class="ticker-item">🏗️ حديد (مبروم): $715/Ton</span>
-            <span class="ticker-item">🏗️ حديد (نحاس): $8,400/Ton</span>
-            <span class="ticker-item">🧱 ترابة (أسود): $145/Ton</span>
+            <span class="ticker-item">🟡 Gold (21k): $72.40</span>
+            <span class="ticker-item">⚪ Silver: $0.92/g</span>
+            <span class="ticker-item">💵 USD/LBP: 89,500 L.L</span>
+            <span class="ticker-item">⛽ Gasoline: 1,650,000 L.L</span>
+            <span class="ticker-item">🏗️ Steel (Rebar): $715/Ton</span>
+            <span class="ticker-item">🧱 Cement: $145/Ton</span>
         </div>
     </div>
 
     <header>
-        <h1>METALCO STEEL SARL</h1>
-        <p>Eng Market - المنصة الهندسية والإنشائية الأولى في لبنان</p>
+        <h1 id="mainTitle">METALCO STEEL SARL</h1>
+        <p id="subTitle">Eng Market - المنصة الهندسية والإنشائية الأولى في لبنان</p>
         <div class="search-container">
-            <input type="text" id="mainSearch" onkeyup="filterCategories()" placeholder="ابحث عن اختصاص (مثلاً: ليزر، باطون، رخام)...">
+            <input type="text" id="mainSearch" onkeyup="filterCats()" placeholder="ابحث عن اختصاص...">
         </div>
     </header>
 
     <div class="container">
-        <h2 class="section-title">الأقسام والخدمات التخصصية</h2>
-        <div class="grid-container" id="categoryGrid">
-            </div>
+        <h2 class="section-title" id="secTitle">الأقسام والخدمات التخصصية</h2>
+        <div class="grid-container" id="grid"></div>
 
-        <h2 class="section-title" id="order-section">نموذج طلب بضاعة للمهندسين والمقاولين</h2>
+        <h2 class="section-title" id="orderTitle">طلب بضاعة للمهندسين والمقاولين</h2>
         <div class="order-panel">
-            <p style="text-align: center; color: #e67e22; font-weight: bold; margin-bottom: 20px;">
-                الرجاء ملء البيانات أدناه. سيتم تحويلك للواتساب لإرسال الخرائط والصور (PDF/Images).
-            </p>
-            <div class="form-row">
-                <div>
-                    <label>الاسم أو اسم المكتب:</label>
-                    <input type="text" id="userName" placeholder="مثال: المهندس محمد خالد">
-                </div>
-                <div>
-                    <label>الصفة المهنية:</label>
-                    <select id="userRole">
-                        <option>مهندس</option>
-                        <option>مقاول</option>
-                        <option>مواطن عادي</option>
-                        <option>شركة موردة</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div>
-                    <label>القسم المستهدف:</label>
-                    <select id="targetCat">
-                        </select>
-                </div>
-                <div>
-                    <label>رقم هاتف التواصل:</label>
-                    <input type="tel" id="userPhone" placeholder="00961xxxxxxxx">
-                </div>
-            </div>
-            <div>
-                <label>وصف الطلب والكميات المطلوبة:</label>
-                <textarea id="orderDetails" rows="4" placeholder="مثلاً: مطلوب 100 متر رخام إيطالي حسب الخارطة المرفقة..."></textarea>
-            </div>
-            <button class="btn-whatsapp" onclick="sendToWhatsapp()">
-                🟢 إرسال الطلب وإرفاق الملفات عبر الواتساب
-            </button>
+            <input type="text" id="uName" placeholder="الاسم الكامل">
+            <select id="uRole">
+                <option value="Engineer">مهندس / Engineer</option>
+                <option value="Contractor">مقاول / Contractor</option>
+                <option value="Client">عميل / Client</option>
+            </select>
+            <select id="targetCat"></select>
+            <input type="tel" id="uPhone" placeholder="00961xxxxxxxx">
+            <textarea id="uDetails" rows="4" placeholder="تفاصيل الطلب..."></textarea>
+            <button class="btn-whatsapp" onclick="sendWA()" id="waBtn">🟢 إرسال عبر واتساب</button>
         </div>
     </div>
 
-    <footer class="footer">
-        © 2026 <b>Metalco Steel SARL</b> - Eng Market Lebanon<br>
-        دليلك الشامل لجميع المهن والمصالح الإنشائية.<br>
-        <small>الإدارة التقنية: 70822806</small>
-    </footer>
+    <footer class="footer">© 2026 Metalco Steel | WhatsApp: 70822806</footer>
 
     <script>
-        const categories = [
-            "حديد البناء والصناعي", "الباطون الجاهز", "أحجار العمار والرمل", "الترابة والسمنت",
-            "الأخشاب والقشرة", "قص ليزر (حديد/ستانلس)", "قص راوتر (خشب/أكريليك)", "ألواح كوبوند وبلاستيك",
-            "الآرمات واللوحات الإعلانية", "الرخام والغرانيت", "السيراميك والأدوات الصحية", "الدهانات والعزل",
-            "الجفصين والديكور", "ورق الجدران والباركيه", "الأقمشة والإسفنج", "الزجاج والمرايا",
-            "الخرضوات والعدد والمسكات", "الألمنيوم والـ PVC", "المعدات الصناعية واليدوية", "المطابخ وتجهيزاتها",
-            "الكهرباء والإنارة", "الطاقة الشمسية", "المصاعد", "التكييف والتدفئة",
-            "مكاتب هندسية", "شركات مقاولات", "تنسيق حدائق", "المفروشات والأثاث", "تأجير معدات ثقيلة"
-        ];
+        const catsAr = ["حديد البناء", "باطون جاهز", "رخام وغرانيت", "قص ليزر", "قص راوتر", "أخشاب وقشرة", "ألمنيوم و PVC", "أحجار ورمل", "كهرباء وإنارة", "طاقة شمسية", "تكييف وتدفئة", "مصاعد", "دهانات وعزل", "جفصين وديكور", "أدوات صحية", "مطابخ", "مفروشات", "تنسيق حدائق", "مكاتب هندسية", "مقاولات", "ألواح كوبوند", "بلاستيك وأكريليك", "آرمات إعلانية", "خرضوات وعدة", "زجاج ومرايا", "باركيه وورق جدران", "أقمشة وإسفنج", "معدات ثقيلة", "ترابة وسمنت", "معدات صناعية"];
+        const catsEn = ["Construction Steel", "Ready Mix Concrete", "Marble & Granite", "Laser Cutting", "Router Cutting", "Wood & Veneer", "Aluminum & PVC", "Stone & Sand", "Electricity & Lighting", "Solar Energy", "HVAC", "Elevators", "Paint & Insulation", "Gypsum & Decor", "Sanitary Ware", "Kitchens", "Furniture", "Landscaping", "Engineering Offices", "Contracting", "Alucobond/ACP", "Plastic & Acrylic", "Signage", "Hardware & Tools", "Glass & Mirrors", "Parquet & Wallpaper", "Fabrics & Foam", "Heavy Equipment", "Cement", "Industrial Equipment"];
 
-        function init() {
-            const grid = document.getElementById('categoryGrid');
+        let lang = 'ar';
+
+        function render() {
+            const grid = document.getElementById('grid');
             const select = document.getElementById('targetCat');
-            
-            categories.sort().forEach(cat => {
-                const card = document.createElement('div');
-                card.className = 'category-card';
-                card.innerHTML = `<span>${cat}</span>`;
-                card.onclick = () => {
-                    document.getElementById('targetCat').value = cat;
-                    document.getElementById('order-section').scrollIntoView({behavior: 'smooth'});
-                };
-                grid.appendChild(card);
-
-                const opt = document.createElement('option');
-                opt.value = cat;
-                opt.innerText = cat;
+            grid.innerHTML = ''; select.innerHTML = '';
+            const list = lang === 'ar' ? catsAr : catsEn;
+            list.sort().forEach((c, i) => {
+                let div = document.createElement('div');
+                div.className = 'category-card';
+                div.innerHTML = `<span>${c}</span>`;
+                div.onclick = () => { select.value = c; document.getElementById('uName').scrollIntoView(); };
+                grid.appendChild(div);
+                let opt = document.createElement('option'); opt.value = c; opt.innerText = c;
                 select.appendChild(opt);
             });
         }
 
-        function filterCategories() {
-            const input = document.getElementById('mainSearch').value.toLowerCase();
-            const cards = document.getElementsByClassName('category-card');
-            
-            for (let card of cards) {
-                const text = card.innerText.toLowerCase();
-                card.style.display = text.includes(input) ? "flex" : "none";
-            }
+        function toggleLang() {
+            lang = lang === 'ar' ? 'en' : 'ar';
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('langBtn').innerText = lang === 'ar' ? 'English' : 'العربية';
+            document.getElementById('mainTitle').innerText = "METALCO STEEL SARL";
+            document.getElementById('subTitle').innerText = lang === 'ar' ? "Eng Market - المنصة الهندسية والإنشائية الأولى في لبنان" : "Eng Market - Lebanon's Premier Engineering Platform";
+            document.getElementById('secTitle').innerText = lang === 'ar' ? "الأقسام والخدمات التخصصية" : "Professional Specialties & Services";
+            document.getElementById('orderTitle').innerText = lang === 'ar' ? "طلب بضاعة للمهندسين والمقاولين" : "Order Request for Engineers & Contractors";
+            document.getElementById('waBtn').innerText = lang === 'ar' ? "🟢 إرسال عبر واتساب" : "🟢 Send via WhatsApp";
+            render();
         }
 
-        function sendToWhatsapp() {
-            const name = document.getElementById('userName').value;
-            const role = document.getElementById('userRole').value;
+        function filterCats() {
+            let val = document.getElementById('mainSearch').value.toLowerCase();
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.style.display = card.innerText.toLowerCase().includes(val) ? "flex" : "none";
+            });
+        }
+
+        function sendWA() {
+            const name = document.getElementById('uName').value;
             const cat = document.getElementById('targetCat').value;
-            const phone = document.getElementById('userPhone').value;
-            const details = document.getElementById('orderDetails').value;
-
-            if(!name || !phone || !details) { 
-                alert("يرجى ملء جميع الخانات (الاسم، الهاتف، وتفاصيل الطلب)"); 
-                return; 
-            }
-
-            const adminPhone = "96170822806";
-            const msg = `*طلب بضاعة جديد - Eng Market*%0A` +
-                        `--------------------------%0A` +
-                        `*المرسل:* ${name} (${role})%0A` +
-                        `*القسم:* ${cat}%0A` +
-                        `*رقم المهندس:* ${phone}%0A` +
-                        `*الطلب:* ${details}%0A%0A` +
-                        `_يرجى من المهندس إرفاق الصور أو ملفات الـ PDF الآن_`;
-
-            window.open(`https://wa.me/${adminPhone}?text=${msg}`, '_blank');
+            const details = document.getElementById('uDetails').value;
+            if(!name || !details) return alert("Please fill name and details");
+            const msg = `*New Order - Eng Market*%0A*From:* ${name}%0A*Category:* ${cat}%0A*Details:* ${details}`;
+            window.open(`https://wa.me/96170822806?text=${msg}`, '_blank');
         }
 
-        window.onload = init;
+        window.onload = render;
     </script>
 </body>
 </html>
