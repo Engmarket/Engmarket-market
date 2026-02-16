@@ -3,115 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eng Market | Metalco Steel</title>
+    <title>Eng Market | المنصة الهندسية</title>
     <style>
-        :root { --primary: #2c3e50; --accent: #f39c12; --light: #f4f7f6; --success: #27ae60; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: var(--light); color: #333; transition: 0.3s; }
-        .ticker-wrap { width: 100%; overflow: hidden; background: #1a1a1a; color: #fff; padding: 12px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--accent); }
+        :root { --primary: #1a2a3a; --accent: #f39c12; --light: #f4f7f6; --success: #27ae60; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #fff; color: #333; overflow-x: hidden; }
+        
+        /* شريط البورصة */
+        .ticker-wrap { background: #111; color: #fff; padding: 10px 0; font-size: 0.85rem; border-bottom: 2px solid var(--accent); }
         .ticker { display: flex; white-space: nowrap; animation: ticker 40s linear infinite; }
-        .ticker-item { padding: 0 25px; font-weight: bold; font-size: 0.9rem; border-left: 1px dashed #444; }
+        .ticker-item { padding: 0 20px; font-weight: bold; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-        .lang-btn { position: absolute; left: 15px; top: 10px; background: var(--accent); color: white; border: none; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 1100; }
-        header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; position: relative; }
-        #mainSearch { width: 90%; max-width: 600px; padding: 12px 20px; border-radius: 25px; border: none; margin-top: 20px; outline: none; }
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        .section-title { text-align: center; color: var(--primary); margin-bottom: 25px; font-size: 1.8rem; border-bottom: 3px solid var(--accent); display: table; margin: 0 auto 25px; padding-bottom: 10px; }
-        .ad-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; margin-bottom: 40px; }
-        .ad-card { background: #fff8e1; border: 2px solid var(--accent); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .wa-link { background: var(--success); color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none; font-weight: bold; }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 50px; }
-        .category-card { background: white; padding: 20px 10px; border-radius: 10px; text-align: center; cursor: pointer; border: 1px solid #eee; font-weight: bold; color: var(--primary); transition: 0.3s; }
-        .category-card:hover { transform: translateY(-3px); border-color: var(--accent); }
-        .footer { text-align: center; padding: 40px; background: #222; color: #fff; margin-top: 50px; }
-        .visitor-counter { margin-top: 15px; padding: 10px; background: #333; display: inline-block; border-radius: 10px; border: 1px solid #444; }
+
+        /* منطقة الإعلانات المتغيرة (Slider) */
+        .ad-slider { background: var(--primary); height: 200px; display: flex; align-items: center; justify-content: center; position: relative; color: white; overflow: hidden; }
+        .ad-content { text-align: center; animation: fadeEffect 9s infinite; width: 100%; position: absolute; }
+        @keyframes fadeEffect { 0%, 30% { opacity: 1; transform: scale(1); } 33%, 63% { opacity: 0; transform: scale(0.9); } 66%, 100% { opacity: 0; } }
+        
+        /* البحث */
+        .header-search { padding: 20px; text-align: center; background: var(--light); }
+        #mainSearch { width: 85%; max-width: 500px; padding: 15px; border-radius: 30px; border: 1px solid #ddd; outline: none; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+        /* شريط الأقسام المسحوب (يمين وشمال) */
+        .cat-scroll { display: flex; overflow-x: auto; padding: 15px; gap: 10px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; background: white; border-bottom: 1px solid #eee; }
+        .cat-scroll::-webkit-scrollbar { display: none; } /* إخفاء شريط التمرير */
+        .cat-item { flex: 0 0 auto; background: var(--light); padding: 10px 20px; border-radius: 20px; border: 1px solid #eee; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+        .cat-item:hover { background: var(--accent); color: white; }
+
+        /* دليل الشركات المعتمدة (تحت السلايدر) */
+        .container { padding: 20px; max-width: 1100px; margin: auto; }
+        .section-title { font-size: 1.2rem; font-weight: bold; margin: 20px 0; color: var(--primary); border-right: 4px solid var(--accent); padding-right: 10px; }
+        .company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+        .comp-card { background: white; border: 1px solid #eee; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .wa-btn { background: var(--success); color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.85rem; }
+
+        .footer { text-align: center; padding: 30px; background: #111; color: #777; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <button class="lang-btn" onclick="toggleLang()" id="langBtn">English</button>
-
     <div class="ticker-wrap">
-        <div class="ticker">
+        <div class="ticker" id="tickerBox">
             <span class="ticker-item">🟡 Gold (21k): $72.40</span>
             <span class="ticker-item">💵 USD/LBP: 89,500 L.L</span>
-            <span class="ticker-item">🏗️ Steel (Rebar): $715/Ton</span>
+            <span class="ticker-item">🏗️ Steel: $715/Ton</span>
             <span class="ticker-item">🧱 Cement: $145/Ton</span>
+            <span class="ticker-item">⛽ Gasoline: 1,650,000 L.L</span>
         </div>
     </div>
 
-    <header>
-        <h1>METALCO STEEL SARL</h1>
-        <p id="subTitle">Eng Market - المنصة الهندسية والإنشائية الأولى في لبنان</p>
-        <input type="text" id="mainSearch" onkeyup="filterCats()" placeholder="ابحث عن اختصاص...">
-    </header>
+    <div class="ad-slider">
+        <div class="ad-content" id="ad1">
+            <h2 style="color:var(--accent)">Eng Market</h2>
+            <p>المنصة الهندسية والإنشائية الأولى في لبنان</p>
+        </div>
+        <div class="ad-content" style="animation-delay: 3s;" id="ad2">
+            <h2>مساحة إعلانية متوفرة</h2>
+            <p>أعلن عن شركتك هنا لتصل إلى آلاف المهندسين</p>
+        </div>
+        <div class="ad-content" style="animation-delay: 6s;" id="ad3">
+            <h2>شركة صقر للأخشاب</h2>
+            <p>أفضل أنواع الأخشاب والقشرة في السوق اللبناني</p>
+        </div>
+    </div>
+
+    <div class="header-search">
+        <input type="text" id="mainSearch" placeholder="عن ماذا تبحث اليوم؟ (حديد، باطون، ليزر...)">
+    </div>
+
+    <div class="cat-scroll" id="catBar"></div>
 
     <div class="container">
-        <h2 class="section-title" id="adTitle">الشركات المعتمدة والمميزة</h2>
-        <div class="ad-container" id="adBox"></div>
-
-        <h2 class="section-title" id="secTitle">كافة التخصصات الهندسية</h2>
-        <div id="grid" class="grid-container"></div>
+        <h2 class="section-title">شركات مختارة لك</h2>
+        <div class="company-grid" id="compBox"></div>
     </div>
 
     <footer class="footer">
-        <p>© 2026 Metalco Steel | Admin: 70822806</p>
-        <div class="visitor-counter">
-            <p style="font-size: 0.7rem; color: #aaa; margin-bottom: 5px;">عدد الزوار / Visitors</p>
-            <img src="https://www.cutercounter.com/hits.php?id=gvxpoxn&nd=6&style=1" border="0" alt="visitor counter">
+        © 2026 Eng Market Lebanon | Powered by Metalco Steel<br>
+        <div style="margin-top:10px;">
+            <img src="https://www.cutercounter.com/hits.php?id=gvxpoxn&nd=6&style=1" alt="visitors">
         </div>
     </footer>
 
     <script>
+        const cats = ["حديد البناء", "باطون جاهز", "رخام وغرانيت", "قص ليزر", "قص راوتر", "أخشاب وقشرة", "ألمنيوم و PVC", "أحجار ورمل", "طاقة شمسية", "تكييف وتدفئة", "مصاعد", "دهانات وعزل", "مطابخ", "مفروشات", "مكاتب هندسية", "مقاولات", "ألواح كوبوند", "بلاستيك وأكريليك", "آرمات إعلانية", "خرضوات وعدة", "زجاج ومرايا", "معدات ثقيلة", "ترابة وسمنت"];
+        
         const companies = [
-            { nameAr: "شركة ميتالكو ستيل", nameEn: "Metalco Steel Co.", catAr: "حديد البناء", catEn: "Construction Steel", phone: "03761784", descAr: "صناعة وتجارة كافة أنواع الحديد", descEn: "Steel Industry & Trading" },
-            { nameAr: "شركة صقر للأخشاب", nameEn: "Sakr Wood", catAr: "أخشاب وقشرة", catEn: "Wood & Veneer", phone: "03000000", descAr: "تجارة الأخشاب والمواد الأولية", descEn: "Wood & Raw Materials Trading" },
-            { nameAr: "شركة الميدان للألمنيوم", nameEn: "Al Midan Aluminum", catAr: "ألمنيوم و PVC", catEn: "Aluminum & PVC", phone: "03000000", descAr: "تجارة الألمنيوم والإكسسوارات", descEn: "Aluminum & Accessories" }
+            { name: "ميتالكو ستيل", cat: "حديد البناء", phone: "03761784", desc: "صناعة وتجارة كافة أنواع الحديد" },
+            { name: "صقر للأخشاب", cat: "أخشاب وقشرة", phone: "03000000", desc: "تجارة الأخشاب والمواد الأولية" },
+            { name: "الميدان للألمنيوم", cat: "ألمنيوم و PVC", phone: "03000000", desc: "تجارة الألمنيوم والإكسسوارات" }
         ];
 
-        const catsAr = ["حديد البناء", "باطون جاهز", "رخام وغرانيت", "قص ليزر", "قص راوتر", "أخشاب وقشرة", "ألمنيوم و PVC", "أحجار ورمل", "طاقة شمسية", "تكييف وتدفئة", "مصاعد", "دهانات وعزل", "مطابخ", "مفروشات", "مكاتب هندسية", "مقاولات", "ألواح كوبوند", "بلاستيك وأكريليك", "آرمات إعلانية", "خرضوات وعدة", "زجاج ومرايا", "معدات ثقيلة", "ترابة وسمنت"];
-        const catsEn = ["Construction Steel", "Ready Mix Concrete", "Marble & Granite", "Laser Cutting", "Router Cutting", "Wood & Veneer", "Aluminum & PVC", "Stone & Sand", "Solar Energy", "HVAC", "Elevators", "Paint & Insulation", "Kitchens", "Furniture", "Engineering Offices", "Contracting", "Alucobond/ACP", "Plastic & Acrylic", "Signage", "Hardware & Tools", "Glass & Mirrors", "Heavy Equipment", "Cement"];
+        function init() {
+            // رندر الخدمات في السلايدر العلوي
+            const bar = document.getElementById('catBar');
+            cats.forEach(c => {
+                let d = document.createElement('div');
+                d.className = 'cat-item';
+                d.innerText = c;
+                d.onclick = () => { document.getElementById('mainSearch').value = c; filter(); };
+                bar.appendChild(d);
+            });
 
-        let lang = 'ar';
+            // رندر الشركات
+            renderCompanies(companies);
+        }
 
-        function render() {
-            const grid = document.getElementById('grid');
-            const adBox = document.getElementById('adBox');
-            grid.innerHTML = ''; adBox.innerHTML = '';
-            
-            const list = lang === 'ar' ? catsAr : catsEn;
+        function renderCompanies(list) {
+            const box = document.getElementById('compBox');
+            box.innerHTML = '';
             list.forEach(c => {
-                let div = document.createElement('div');
-                div.className = 'category-card';
-                div.innerText = c;
-                grid.appendChild(div);
-            });
-
-            companies.forEach(comp => {
-                let card = document.createElement('div');
-                card.className = 'ad-card';
-                card.innerHTML = `<div><h4>${lang === 'ar' ? comp.nameAr : comp.nameEn}</h4><p>${lang === 'ar' ? comp.descAr : comp.descEn}</p></div><a href="https://wa.me/961${comp.phone.substring(1)}" class="wa-link">${lang === 'ar' ? 'واتساب' : 'WhatsApp'}</a>`;
-                adBox.appendChild(card);
+                box.innerHTML += `
+                <div class="comp-card">
+                    <div>
+                        <strong>${c.name}</strong><br>
+                        <small style="color:#888">${c.desc}</small>
+                    </div>
+                    <a href="https://wa.me/961${c.phone.substring(1)}" class="wa-btn">واتساب</a>
+                </div>`;
             });
         }
 
-        function toggleLang() {
-            lang = lang === 'ar' ? 'en' : 'ar';
-            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-            document.getElementById('langBtn').innerText = lang === 'ar' ? 'English' : 'العربية';
-            document.getElementById('subTitle').innerText = lang === 'ar' ? "Eng Market - المنصة الهندسية والإنشائية الأولى في لبنان" : "Eng Market - Lebanon's Premier Engineering Platform";
-            document.getElementById('adTitle').innerText = lang === 'ar' ? "الشركات المعتمدة والمميزة" : "Featured & Verified Companies";
-            document.getElementById('secTitle').innerText = lang === 'ar' ? "كافة التخصصات الهندسية" : "All Engineering Specialties";
-            render();
-        }
-
-        function filterCats() {
+        function filter() {
             let val = document.getElementById('mainSearch').value.toLowerCase();
-            document.querySelectorAll('.category-card').forEach(card => {
-                card.style.display = card.innerText.toLowerCase().includes(val) ? "block" : "none";
-            });
+            const filtered = companies.filter(c => c.name.includes(val) || c.cat.includes(val));
+            renderCompanies(filtered);
         }
 
-        window.onload = render;
+        document.getElementById('mainSearch').onkeyup = filter;
+        window.onload = init;
     </script>
 </body>
 </html>
