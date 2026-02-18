@@ -3,159 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eng Market | المنصة الهندسية</title>
+    <title>Eng Market | المنصة الهندسية المتكاملة</title>
     <style>
-        :root { --primary: #002f34; --accent: #3a77ff; --light: #f2f4f5; --success: #00a49f; --gold: #f39c12; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #fff; color: var(--primary); }
+        :root { --primary: #002f34; --accent: #3a77ff; --light: #f2f4f5; --success: #00a49f; --gold: #f39c12; --danger: #e74c3c; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #fff; color: var(--primary); scroll-behavior: smooth; }
         
-        /* الهيدر */
-        header { background: #fff; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 1.5rem; font-weight: 900; color: var(--primary); text-decoration: none; }
-        .lang-link { color: var(--accent); text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        /* الهيدر واللوغو */
+        header { background: #fff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-size: 1.6rem; font-weight: 900; color: var(--primary); text-decoration: none; }
+        .nav-btns { display: flex; gap: 8px; }
+        .btn { padding: 8px 12px; border-radius: 6px; text-decoration: none; font-size: 0.8rem; font-weight: bold; cursor: pointer; border: none; }
+        .btn-update { background: var(--gold); color: white; } /* للشركات لتحديث ملفها */
+        .btn-order { background: var(--accent); color: white; } /* للمهندسين لطلب تسعير */
 
-        /* البحث */
-        .search-box { background: var(--light); padding: 15px; text-align: center; }
-        #mainSearch { width: 90%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; outline: none; }
+        /* منطقة البحث والفلترة الجغرافية */
+        .filter-section { background: var(--light); padding: 20px; text-align: center; border-bottom: 1px solid #ddd; }
+        #mainSearch { width: 90%; max-width: 600px; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 15px; }
+        .region-filter { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .reg-btn { background: #fff; border: 1px solid #ddd; padding: 5px 15px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; }
+        .reg-btn.active { background: var(--primary); color: white; }
 
-        /* سلايدر الصور */
-        .hero-slider { position: relative; width: 100%; height: 200px; overflow: hidden; background: #000; }
-        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1s; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; }
-        .slide.active { opacity: 1; }
-        .slide-text { background: rgba(0,0,0,0.5); color: #fff; padding: 15px; width: 100%; text-align: center; }
+        /* سكرول الاختصاصات (30 اختصاص) */
+        .cat-ribbon { display: flex; overflow-x: auto; padding: 15px; gap: 15px; background: #fff; border-bottom: 1px solid #eee; }
+        .cat-ribbon::-webkit-scrollbar { display: none; }
+        .cat-item { flex: 0 0 auto; text-align: center; width: 70px; cursor: pointer; }
+        .cat-circle { width: 50px; height: 50px; background: #fdfdfd; border: 1px solid #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; font-size: 1.3rem; }
+        .cat-item span { font-size: 0.7rem; font-weight: bold; }
 
-        /* الأيقونات الدائرية (يسحب يمين وشمال) */
-        .cat-scroll { display: flex; overflow-x: auto; padding: 20px 10px; gap: 15px; scroll-behavior: smooth; }
-        .cat-scroll::-webkit-scrollbar { display: none; }
-        .cat-item { flex: 0 0 auto; text-align: center; width: 75px; cursor: pointer; }
-        .cat-icon { width: 55px; height: 55px; background: #fff; border: 1px solid #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; font-size: 1.4rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .cat-item span { font-size: 0.75rem; font-weight: 600; }
+        /* عرض الشركات */
+        .container { padding: 20px; max-width: 1200px; margin: auto; }
+        .comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { border: 1px solid #eee; border-radius: 12px; background: #fff; position: relative; transition: 0.3s; padding: 15px; }
+        .card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .card-tag { position: absolute; top: 10px; left: 10px; background: var(--success); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem; }
+        .card-loc { font-size: 0.75rem; color: var(--accent); font-weight: bold; }
+        .card-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-top: 15px; }
+        .act-btn { padding: 8px; text-align: center; border-radius: 4px; text-decoration: none; font-size: 0.75rem; font-weight: bold; border: 1px solid #eee; color: var(--primary); }
+        
+        /* نموذج طلب التسعير وتحديث الشركات (Modals) */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 25px; border-radius: 15px; width: 90%; max-width: 500px; position: relative; max-height: 80vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 10px; left: 10px; cursor: pointer; font-size: 1.5rem; }
+        label { display: block; margin-top: 10px; font-weight: bold; font-size: 0.9rem; }
+        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        .btn-submit { background: var(--primary); color: white; width: 100%; margin-top: 20px; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
 
-        /* قسم العروض الساخنة */
-        .hot-deals { background: #fff8e1; padding: 15px; margin: 10px; border-radius: 10px; border: 1px dashed var(--gold); }
-        .deal-card { background: #fff; padding: 10px; border-radius: 8px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #ffe082; }
+        /* قسم الإعلانات (ريثما توافق عليها) */
+        .ad-banner { background: var(--gold); color: white; padding: 10px; text-align: center; border-radius: 8px; margin-bottom: 20px; display: none; }
 
-        /* قسم طلب عرض سعر (IndiaMart Style) */
-        .rfq-box { background: var(--accent); color: white; padding: 25px 20px; margin: 20px 0; text-align: center; }
-        .btn-rfq { background: white; color: var(--accent); border: none; padding: 12px 25px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 100%; }
-
-        /* دليل الشركات */
-        .comp-card { margin: 15px; border: 1px solid #eee; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .comp-body { padding: 15px; }
-        .verified-tag { color: var(--success); font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; display: block; }
-        .comp-footer { background: #fafafa; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
-        .wa-btn { background: var(--success); color: #fff; padding: 8px 18px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
-
-        .footer { background: var(--primary); color: #ccc; padding: 30px 15px; text-align: center; font-size: 0.8rem; }
+        footer { background: var(--primary); color: white; padding: 30px; text-align: center; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo">Eng Market</a>
-        <a href="#" class="lang-link" onclick="toggleLang()">English</a>
-    </header>
-
-    <div class="search-box">
-        <input type="text" id="mainSearch" onkeyup="search()" placeholder="ابحث عن: حديد، رخام، مكاتب هندسية...">
+<header>
+    <a href="#" class="logo">🏗️ Eng Market</a>
+    <div class="nav-btns">
+        <button class="btn btn-update" onclick="openModal('companyModal')">تحديث/إعلان</button>
+        <button class="btn btn-order" onclick="openModal('orderModal')">طلب تسعير</button>
     </div>
+</header>
 
-    <div class="hero-slider">
-        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800')">
-            <div class="slide-text"><h3>عروض حصرية على حديد البناء</h3></div>
-        </div>
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800')">
-            <div class="slide-text"><h3>أكبر تجمع للمكاتب الهندسية في لبنان</h3></div>
-        </div>
+<div class="filter-section">
+    <input type="text" id="mainSearch" onkeyup="smartSearch()" placeholder="ابحث عن شركة أو اختصاص...">
+    <div class="region-filter" id="regionBar">
+        <button class="reg-btn active" onclick="filterLoc('الكل')">كل لبنان</button>
+        <button class="reg-btn" onclick="filterLoc('بيروت')">بيروت</button>
+        <button class="reg-btn" onclick="filterLoc('الشمال')">الشمال</button>
+        <button class="reg-btn" onclick="filterLoc('الجنوب')">الجنوب</button>
+        <button class="reg-btn" onclick="filterLoc('البقاع')">البقاع</button>
+        <button class="reg-btn" onclick="filterLoc('الجبل')">الجبل</button>
     </div>
+</div>
 
-    <div class="cat-scroll" id="catBar"></div>
+<div class="cat-ribbon" id="catBar"></div>
 
-    <div class="hot-deals">
-        <strong style="color:var(--gold)">🔥 عروض اليوم الساخنة</strong>
-        <div class="deal-card">
-            <div><strong>خصم 15% على الرخام</strong><br><small>شركة الرخام المتحدة</small></div>
-            <a href="https://wa.me/96170822806" class="wa-btn">احصل على العرض</a>
-        </div>
+<div class="container">
+    <div id="adSpace" class="ad-banner">📢 إعلان مميز: عرض خاص من شركة ميتالكو (قيد الموافقة)</div>
+    <h2 id="viewTitle">الشركات المسجلة</h2>
+    <div class="comp-grid" id="compGrid"></div>
+</div>
+
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('orderModal')">&times;</span>
+        <h3>طلب عرض سعر مجمع</h3>
+        <p style="font-size: 0.8rem; color: #666;">سيتم إرسال طلبك لأفضل 3 موردين في منطقتك</p>
+        <label>نوع المادة المطلوبة</label>
+        <input type="text" id="orderType" placeholder="مثلاً: حديد مبروم 12 ملم">
+        <label>المنطقة المستهدفة</label>
+        <select id="orderLoc">
+            <option>الشمال</option><option>بيروت</option><option>الجنوب</option><option>البقاع</option>
+        </select>
+        <label>الكمية التقريبية</label>
+        <input type="text" id="orderQty" placeholder="مثلاً: 5 طن">
+        <button class="btn-submit" onclick="submitOrder()">إرسال الطلب للموردين</button>
     </div>
+</div>
 
-    <div class="rfq-box">
-        <h3>هل تبحث عن بضاعة محددة؟</h3>
-        <p>أرسل طلبك الآن وسنقوم بتوصيله لأفضل الموردين بدلاً منك</p>
-        <button class="btn-rfq" onclick="openRFQ()">أرسل طلب شراء جماعي</button>
+<div id="companyModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('companyModal')">&times;</span>
+        <h3>بوابة الموردين</h3>
+        <p style="font-size: 0.8rem; color: #666;">لتعديل بياناتك أو إضافة إعلان (يخضع لموافقة الإدارة)</p>
+        <label>اسم الشركة</label>
+        <input type="text" id="compNameUpdate">
+        <label>نوع الطلب</label>
+        <select id="requestType">
+            <option>تعديل معلومات الملف</option>
+            <option>إضافة حسم/تنزيلات</option>
+            <option>طلب إعلان مميز (مدفوع)</option>
+        </select>
+        <label>التفاصيل الجديدة</label>
+        <textarea id="compDetails" rows="4" placeholder="اكتب هنا التعديلات أو نص الإعلان..."></textarea>
+        <button class="btn-submit" onclick="submitCompanyReq()">إرسال للمراجعة</button>
     </div>
+</div>
 
-    <div id="compBox"></div>
+<footer>
+    <p>Eng Market Lebanon © 2026</p>
+    <img src="https://www.cutercounter.com/hits.php?id=gvxpoxn&nd=6&style=1" alt="hits">
+</footer>
 
-    <div class="rfq-box" style="background:#fff; color:var(--primary); border: 2px solid var(--primary);">
-        <h3>أصحاب الشركات والمصانع</h3>
-        <p>هل تريد إضافة شركتك في الدليل والوصول لآلاف المهندسين؟</p>
-        <button class="btn-rfq" style="background:var(--primary); color:white" onclick="joinAsCompany()">انضم كشركة الآن</button>
-    </div>
+<script>
+    // 1. البيانات (المنطقة مضافة)
+    const categories = [
+        {n:"حديد", i:"🏗️"}, {n:"باطون", i:"🚚"}, {n:"خشب", i:"🪵"}, {n:"رخام", i:"🏛️"}, 
+        {n:"مصاعد", i:"🛗"}, {n:"طاقة", i:"☀️"}, {n:"دهان", i:"🎨"}, {n:"صحي", i:"🚿"},
+        {n:"كهرباء", i:"💡"}, {n:"مكاتب", i:"📐"}, {n:"مقاولات", i:"👷"}, {n:"مطابخ", i:"🍳"}
+    ];
 
-    <footer class="footer">
-        © 2026 Eng Market Lebanon | <img src="https://www.cutercounter.com/hits.php?id=gvxpoxn&nd=6&style=1" alt="visitors">
-    </footer>
+    const companies = [
+        { id: 1, n: "ميتالكو ستيل", c: "حديد", p: "96103761784", l: "بيروت", d: "تجارة وصناعة حديد البناء", v: true },
+        { id: 2, n: "صقر الشمال", c: "خشب", p: "96103000000", l: "الشمال", d: "توريد أخشاب للمقاولين", v: true },
+        { id: 3, n: "كهرباء الجنوب", c: "كهرباء", p: "96107000000", l: "الجنوب", d: "تمديدات صناعية ومواد كهربائية", v: true }
+    ];
 
-    <script>
-        const categories = [
-            {n:"حديد", i:"🏗️"}, {n:"باطون", i:"🚚"}, {n:"خشب", i:"🪵"}, {n:"رخام", i:"🏛️"}, 
-            {n:"ألمنيوم", i:"🪟"}, {n:"ليزر", i:"⚡"}, {n:"طاقة", i:"☀️"}, {n:"دهان", i:"🎨"},
-            {n:"صحي", i:"🚿"}, {n:"كهرباء", i:"💡"}, {n:"مكاتب", i:"📐"}, {n:"مقاولات", i:"👷"}
-        ];
+    let currentLoc = "الكل";
 
-        const companies = [
-            { name: "ميتالكو ستيل", cat: "حديد", phone: "03761784", desc: "صناعة وتجارة كافة أنواع حديد البناء", v: true },
-            { name: "صقر للأخشاب", cat: "خشب", phone: "03000000", desc: "أفضل أنواع الأخشاب والقشرة المستوردة", v: true }
-        ];
+    function init() {
+        const bar = document.getElementById('catBar');
+        categories.forEach(c => {
+            bar.innerHTML += `<div class="cat-item" onclick="filterCat('${c.n}')"><div class="cat-circle">${c.i}</div><span>${c.n}</span></div>`;
+        });
+        render(companies);
+    }
 
-        function init() {
-            const bar = document.getElementById('catBar');
-            categories.forEach(c => {
-                bar.innerHTML += `<div class="cat-item" onclick="filter('${c.n}')"><div class="cat-icon">${c.i}</div><span>${c.n}</span></div>`;
-            });
-            renderComps(companies);
-            startSlider();
-        }
-
-        function renderComps(list) {
-            const box = document.getElementById('compBox');
-            box.innerHTML = '<h3 style="margin:15px">الشركات الموصى بها</h3>';
-            list.forEach(c => {
-                box.innerHTML += `
-                <div class="comp-card">
-                    <div class="comp-body">
-                        ${c.v ? '<span class="verified-tag">✓ شركة موثقة</span>' : ''}
-                        <strong style="font-size:1.1rem">${c.name}</strong>
-                        <p style="margin:5px 0; font-size:0.85rem; color:#666">${c.desc}</p>
-                    </div>
-                    <div class="comp-footer">
-                        <span style="font-size:0.8rem; color:var(--accent)">#${c.cat}</span>
-                        <a href="https://wa.me/961${c.phone.substring(1)}" class="wa-btn">تواصل واتساب</a>
+    function render(data) {
+        const grid = document.getElementById('compGrid');
+        grid.innerHTML = '';
+        data.forEach(c => {
+            grid.innerHTML += `
+                <div class="card">
+                    ${c.v ? '<span class="card-tag">موثق</span>' : ''}
+                    <div class="card-loc">📍 ${c.l}</div>
+                    <h3 style="margin:10px 0">${c.n}</h3>
+                    <div style="font-size:0.8rem; color:#666; margin-bottom:10px;">${c.d}</div>
+                    <div style="font-size:0.75rem; color:var(--accent); font-weight:bold;">${c.c}</div>
+                    <div class="card-actions">
+                        <a href="https://wa.me/${c.p}" class="act-btn" style="background:#25d366; color:white;">واتساب</a>
+                        <a href="#" class="act-btn">خريطة</a>
+                        <a href="#" class="act-btn">إيميل</a>
                     </div>
                 </div>`;
-            });
-        }
+        });
+    }
 
-        function openRFQ() { window.open("https://wa.me/96170822806?text=أريد طلب عرض سعر بخصوص:", "_blank"); }
-        function joinAsCompany() { window.open("https://wa.me/96170822806?text=أريد إضافة شركتي في منصة Eng Market", "_blank"); }
+    // الفلترة
+    function filterLoc(loc) {
+        currentLoc = loc;
+        document.querySelectorAll('.reg-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        const data = loc === "الكل" ? companies : companies.filter(c => c.l === loc);
+        render(data);
+    }
 
-        function startSlider() {
-            let current = 0;
-            const slides = document.querySelectorAll('.slide');
-            setInterval(() => {
-                slides[current].classList.remove('active');
-                current = (current + 1) % slides.length;
-                slides[current].classList.add('active');
-            }, 4000);
-        }
+    function filterCat(cat) {
+        let data = companies.filter(c => c.c === cat);
+        if(currentLoc !== "الكل") data = data.filter(c => c.l === currentLoc);
+        render(data);
+    }
 
-        function filter(k) { renderComps(companies.filter(c => c.cat === k)); }
-        function search() {
-            let v = document.getElementById('mainSearch').value;
-            renderComps(companies.filter(c => c.name.includes(v) || c.cat.includes(v)));
-        }
+    function smartSearch() {
+        let val = document.getElementById('mainSearch').value.toLowerCase();
+        render(companies.filter(c => c.n.includes(val) || c.c.includes(val)));
+    }
 
-        window.onload = init;
-    </script>
+    // إدارة المودال (النماذج)
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    // إرسال الطلبات (تصل إليك على الواتساب منظمة)
+    function submitOrder() {
+        const type = document.getElementById('orderType').value;
+        const loc = document.getElementById('orderLoc').value;
+        const qty = document.getElementById('orderQty').value;
+        const msg = `طلب تسعير جديد:\nالمادة: ${type}\nالمنطقة: ${loc}\nالكمية: ${qty}`;
+        window.open(`https://wa.me/96170822806?text=${encodeURIComponent(msg)}`);
+        closeModal('orderModal');
+    }
+
+    function submitCompanyReq() {
+        const name = document.getElementById('compNameUpdate').value;
+        const type = document.getElementById('requestType').value;
+        const det = document.getElementById('compDetails').value;
+        const msg = `طلب من شركة: ${name}\nنوع الطلب: ${type}\nالتفاصيل: ${det}`;
+        window.open(`https://wa.me/96170822806?text=${encodeURIComponent(msg)}`);
+        closeModal('companyModal');
+    }
+
+    window.onload = init;
+</script>
 </body>
 </html>
