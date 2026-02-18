@@ -6,155 +6,170 @@
     <title>Eng Market | المنصة الهندسية المتكاملة</title>
     
     <style>
-        :root { --primary: #0d1b2a; --accent: #1b263b; --gold: #e0e1dd; --brand: #c5a059; --text-light: #f8f9fa; }
+        :root { --primary: #0d1b2a; --brand: #c5a059; --light-bg: #f4f7f9; --white: #ffffff; }
         
-        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; margin: 0; background: #f4f4f9; color: var(--primary); -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--light-bg); color: var(--primary); transition: all 0.3s; }
 
-        /* الهيدر: سريع وبسيط للهاتف */
+        /* Header & Lang Toggle */
         header { background: var(--primary); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .logo { font-size: 1.4rem; font-weight: 900; color: var(--brand); text-decoration: none; text-transform: uppercase; }
-        .lang-toggle { background: transparent; border: 1px solid var(--brand); color: var(--brand); padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; }
+        .logo { font-size: 1.4rem; font-weight: 900; color: var(--brand); text-decoration: none; }
+        .lang-toggle { background: transparent; border: 1.5px solid var(--brand); color: var(--brand); padding: 6px 15px; border-radius: 5px; font-size: 0.8rem; cursor: pointer; font-weight: bold; }
 
-        /* سلايدر الصور (5 صور) - خفيف جداً في التحميل */
-        .hero-slider { width: 100%; height: 280px; position: relative; overflow: hidden; background: #000; }
-        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1s ease-in-out; background-size: cover; background-position: center; }
+        /* Full Slider (5 Images) */
+        .hero-slider { width: 100%; height: 300px; position: relative; overflow: hidden; background: #000; }
+        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1.5s ease-in-out; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
         .slide.active { opacity: 0.6; }
-        .slide-content { position: absolute; bottom: 20px; right: 20px; color: #white; z-index: 10; left: 20px; text-align: right; }
-        .slide-content h2 { color: var(--brand); margin: 0; font-size: 1.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .slide-text { padding: 30px; color: white; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.8)); }
+        .slide-text h2 { margin: 0; color: var(--brand); font-size: 1.6rem; }
 
-        /* شريط الإعلانات (الموافقة للمدير) */
-        .ad-marquee { background: var(--brand); color: var(--primary); padding: 8px 0; font-weight: bold; font-size: 0.85rem; overflow: hidden; }
-        .marquee-text { display: inline-block; white-space: nowrap; animation: scroll 20s linear infinite; }
-        @keyframes scroll { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+        /* Moving Ads */
+        .ad-marquee { background: var(--brand); color: var(--primary); padding: 8px 0; font-weight: bold; overflow: hidden; font-size: 0.85rem; }
+        .marquee-inner { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; }
+        @keyframes marquee { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
 
-        /* البحث والفلترة - تصميم مريح للإبهام على الهاتف */
-        .search-area { background: white; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .search-input { width: 100%; padding: 12px; border: 1.5px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1rem; margin-bottom: 10px; }
-        .region-tabs { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 5px; scrollbar-width: none; }
-        .region-tabs::-webkit-scrollbar { display: none; }
-        .tab { padding: 8px 16px; background: #eee; border-radius: 20px; font-size: 0.85rem; white-space: nowrap; cursor: pointer; border: none; }
-        .tab.active { background: var(--brand); color: white; }
+        /* Search & Location Bar */
+        .search-section { background: white; padding: 20px 5%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        #mainSearch { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem; margin-bottom: 15px; outline: none; }
+        .tabs-container { display: flex; overflow-x: auto; gap: 10px; scrollbar-width: none; }
+        .tabs-container::-webkit-scrollbar { display: none; }
+        .loc-tab { padding: 8px 18px; background: #e9ecef; border-radius: 20px; white-space: nowrap; cursor: pointer; border: none; font-weight: bold; font-size: 0.85rem; color: var(--primary); }
+        .loc-tab.active { background: var(--brand); color: white; }
 
-        /* شريط الخدمات الـ 30 - أيقونات جذابة */
-        .services-ribbon { display: flex; overflow-x: auto; gap: 20px; padding: 20px; background: white; border-bottom: 1px solid #eee; }
-        .service-item { flex: 0 0 auto; text-align: center; width: 70px; }
-        .icon-circle { width: 55px; height: 55px; background: #f0f2f5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 5px; transition: 0.2s; border: 1px solid transparent; }
-        .service-item:active .icon-circle { border-color: var(--brand); transform: scale(0.9); }
-        .service-item span { font-size: 0.7rem; font-weight: bold; color: #555; }
+        /* Round Icons Ribbon (The Icons you liked) */
+        .services-ribbon { display: flex; overflow-x: auto; gap: 20px; padding: 25px 5%; background: white; border-bottom: 1px solid #eee; }
+        .services-ribbon::-webkit-scrollbar { display: none; }
+        .service-card { flex: 0 0 auto; text-align: center; width: 80px; cursor: pointer; }
+        .icon-circle { width: 60px; height: 60px; background: white; border: 2px solid var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 10px; box-shadow: 0 4px 10px rgba(197, 160, 89, 0.2); transition: 0.3s; }
+        .service-card:hover .icon-circle { transform: scale(1.1); background: var(--brand); color: white; }
+        .service-card span { font-size: 0.75rem; font-weight: bold; display: block; height: 20px; }
 
-        /* شبكة الشركات - تصميم البطاقات */
-        .grid-container { padding: 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); gap: 15px; }
-        .comp-card { background: white; border-radius: 12px; padding: 15px; border: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.04); position: relative; }
-        .v-badge { position: absolute; top: 15px; left: 15px; color: #27ae60; font-size: 0.7rem; font-weight: bold; }
-        .comp-name { font-size: 1.2rem; font-weight: bold; margin: 0 0 5px 0; color: var(--primary); }
-        .comp-tags { font-size: 0.8rem; color: var(--brand); font-weight: bold; margin-bottom: 10px; }
-        .comp-desc { font-size: 0.85rem; color: #666; line-height: 1.4; margin-bottom: 15px; }
-        
-        /* أزرار الاتصال - كبيرة وسهلة النقر */
-        .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn-call { background: var(--primary); color: white; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
-        .btn-whatsapp { background: #25d366; color: white; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        /* Company Grid */
+        .container { padding: 20px 5%; max-width: 1200px; margin: auto; }
+        .comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 15px; padding: 20px; border: 1px solid #eee; position: relative; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .verified { position: absolute; top: 15px; left: 15px; color: #2ecc71; font-weight: bold; font-size: 0.7rem; }
+        .card-loc { color: var(--brand); font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
+        .card-title { font-size: 1.3rem; margin: 5px 0; color: var(--primary); }
+        .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .btn-act { padding: 12px; text-align: center; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.85rem; }
+        .btn-tel { background: var(--primary); color: white; }
+        .btn-wa { background: #25d366; color: white; }
 
-        /* بوابات المشتركين */
-        .gates { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .gate-box { background: var(--primary); color: white; padding: 20px; border-radius: 10px; text-align: center; }
-        .gate-box.white { background: white; color: var(--primary); border: 2px solid var(--primary); }
-        .gate-box h4 { margin: 0 0 10px 0; font-size: 0.9rem; }
+        /* Gates */
+        .sub-gates { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 40px; }
+        .gate { background: var(--primary); color: white; padding: 25px; border-radius: 12px; text-align: center; }
+        .gate.alt { background: white; color: var(--primary); border: 2px solid var(--primary); }
 
-        footer { background: var(--primary); color: white; text-align: center; padding: 30px; margin-top: 20px; border-top: 4px solid var(--brand); }
+        footer { background: var(--primary); color: white; text-align: center; padding: 40px 5%; margin-top: 50px; border-top: 4px solid var(--brand); }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="#" class="logo">ENG MARKET</a>
-    <button class="lang-toggle">English</button>
+    <a href="#" class="logo" id="siteLogo">ENG MARKET</a>
+    <button class="lang-toggle" onclick="toggleLang()" id="langBtn">English</button>
 </header>
 
 <div class="hero-slider">
     <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=800')">
-        <div class="slide-content"><h2>مواد البناء الأساسية</h2><p style="color:white">أفضل أسعار الحديد والباطون</p></div>
+        <div class="slide-text"><h2 id="s1t">أفضل شركات الحديد</h2></div>
     </div>
     <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1503387762-592dee58c460?q=80&w=800')">
-        <div class="slide-content"><h2>معدات وآلات ثقيلة</h2><p style="color:white">تأجير وبيع الرافعات والمعدات</p></div>
+        <div class="slide-text"><h2 id="s2t">خدمات الخرسانة والباطون</h2></div>
     </div>
     <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=800')">
-        <div class="slide-content"><h2>أنظمة الطاقة الشمسية</h2><p style="color:white">حلول الطاقة المستدامة لمشاريعك</p></div>
+        <div class="slide-text"><h2 id="s3t">الطاقة الشمسية المتطورة</h2></div>
     </div>
     <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?q=80&w=800')">
-        <div class="slide-content"><h2>تشطيبات وديكور</h2><p style="color:white">رخام، ألمنيوم، ودهانات احترافية</p></div>
+        <div class="slide-text"><h2 id="s4t">مقاولات وديكورات عامة</h2></div>
     </div>
     <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800')">
-        <div class="slide-content"><h2>تجهيز مكاتب هندسية</h2><p style="color:white">كل ما يحتاجه المهندس في مكتبه</p></div>
+        <div class="slide-text"><h2 id="s5t">تجهيز مكاتب هندسية</h2></div>
     </div>
 </div>
 
 <div class="ad-marquee">
-    <div class="marquee-text">📢 عرض حصري: خصم 15% على تمديدات الكهرباء من شركة 'تكنو-لايت' للمهندسين المسجلين 📢</div>
+    <div class="marquee-inner" id="marqueeText">📢 عرض خاص: خصم 10% لدى شركة 'ميتالكو' للمهندسين المسجلين - تواصل معنا للإعلان هنا 📢</div>
 </div>
 
-<div class="search-area">
-    <input type="text" id="searchInput" class="search-input" onkeyup="smartFilter()" placeholder="ابحث عن شركة أو اختصاص...">
-    <div class="region-tabs" id="regionTabs">
-        <button class="tab active" onclick="filterByLoc('الكل')">كل لبنان</button>
-        <button class="tab" onclick="filterByLoc('بيروت')">بيروت</button>
-        <button class="tab" onclick="filterByLoc('الشمال')">الشمال</button>
-        <button class="tab" onclick="filterByLoc('الجنوب')">الجنوب</button>
-        <button class="tab" onclick="filterByLoc('البقاع')">البقاع</button>
-        <button class="tab" onclick="filterByLoc('الجبل')">الجبل</button>
+<div class="search-section">
+    <input type="text" id="mainSearch" onkeyup="smartSearch()" placeholder="ابحث عن شركة أو اختصاص...">
+    <div class="tabs-container" id="locTabs">
+        <button class="loc-tab active" onclick="filterLoc('الكل', this)">كل لبنان</button>
+        <button class="loc-tab" onclick="filterLoc('بيروت', this)">بيروت</button>
+        <button class="loc-tab" onclick="filterLoc('الشمال', this)">الشمال</button>
+        <button class="loc-tab" onclick="filterLoc('الجنوب', this)">الجنوب</button>
+        <button class="loc-tab" onclick="filterLoc('البقاع', this)">البقاع</button>
+        <button class="loc-tab" onclick="filterLoc('الجبل', this)">الجبل</button>
     </div>
 </div>
 
-<div class="services-ribbon" id="serviceBar"></div>
+<div class="services-ribbon" id="catBar"></div>
 
-<div class="grid-container" id="compGrid"></div>
+<div class="container">
+    <div class="comp-grid" id="compGrid"></div>
 
-<div class="gates">
-    <div class="gate-box" onclick="window.open('https://wa.me/96170822806')">
-        <h4>بوابة المهندسين</h4>
-        <small>سجل الآن مجاناً</small>
-    </div>
-    <div class="gate-box white" onclick="window.open('https://wa.me/96170822806')">
-        <h4>بوابة الموردين</h4>
-        <small>أضف شركتك هنا</small>
+    <div class="sub-gates">
+        <div class="gate" onclick="window.open('https://wa.me/96170822806')">
+            <h4 id="engGateTitle">بوابة المهندسين</h4>
+            <small id="engGateSub">انضم إلينا مجاناً</small>
+        </div>
+        <div class="gate alt" onclick="window.open('https://wa.me/96170822806')">
+            <h4 id="comGateTitle">بوابة الموردين</h4>
+            <small id="comGateSub">أضف شركتك الآن</small>
+        </div>
     </div>
 </div>
 
 <footer>
-    <p>ENG MARKET LEBANON © 2026</p>
-    <div style="margin: 15px 0;">
-        <img src="https://www.cutercounter.com/hits.php?id=gvxpoxn&nd=6&style=1" alt="visitors">
-    </div>
-    <small>المنصة الهندسية الأسرع والأكثر موثوقية</small>
+    <h3 style="color:var(--brand)">ENG MARKET</h3>
+    <p id="footerDesc">أكبر تجمع للموردين والمهندسين في لبنان</p>
+    <img src="https://www.cutercounter.com/hits.php?id=gvxpoxn&nd=6&style=1" alt="visitors">
 </footer>
 
 <script>
-    // قائمة الـ 30 اختصاصاً (الكاملة)
-    const categories = [
-        {n:"حديد", i:"🏗️"}, {n:"باطون", i:"🚚"}, {n:"خشب", i:"🪵"}, {n:"رخام", i:"🏛️"}, 
-        {n:"ألمنيوم", i:"🪟"}, {n:"مصاعد", i:"🛗"}, {n:"طاقة", i:"☀️"}, {n:"دهان", i:"🎨"},
-        {n:"صحي", i:"🚿"}, {n:"كهرباء", i:"💡"}, {n:"ديكور", i:"🛋️"}, {n:"تكييف", i:"❄️"},
-        {n:"عزل", i:"🛡️"}, {n:"زجاج", i:"💎"}, {n:"بلاط", i:"🧱"}, {n:"جبصين", i:"⚪"},
-        {n:"حدائق", i:"🌳"}, {n:"مسابح", i:"🏊"}, {n:"أمن", i:"🛡️"}, {n:"مكاتب", i:"📐"},
-        {n:"مقاولات", i:"👷"}, {n:"نقل", i:"🚛"}, {n:"رافعات", i:"🏗️"}, {n:"أدوات", i:"🔧"},
-        {n:"كيماويات", i:"🧪"}, {n:"خزانات", i:"🛢️"}, {n:"إنارة", i:"🔦"}, {n:"مطابخ", i:"🍳"},
-        {n:"سيراميك", i:"🧩"}, {n:"أسوار", i:"🚧"}
+    // 1. الترجمة
+    let lang = 'ar';
+    const ui = {
+        ar: {
+            search: "ابحث عن شركة أو اختصاص...", all: "كل لبنان", beirut: "بيروت", north: "الشمال", south: "الجنوب", beqaa: "البقاع", mount: "الجبل",
+            engT: "بوابة المهندسين", comT: "بوابة الموردين", sub: "انضم إلينا مجاناً", add: "أضف شركتك الآن", footer: "أكبر تجمع للموردين والمهندسين في لبنان",
+            call: "اتصال مباشر", wa: "واتساب"
+        },
+        en: {
+            search: "Search for company or service...", all: "All Lebanon", beirut: "Beirut", north: "North", south: "South", beqaa: "Beqaa", mount: "Mount",
+            engT: "Engineers Portal", comT: "Suppliers Portal", sub: "Join for Free", add: "Add Company", footer: "The largest engineering hub in Lebanon",
+            call: "Call Now", wa: "WhatsApp"
+        }
+    };
+
+    // 2. الاختصاصات (30)
+    const cats = [
+        {n:"حديد", en:"Steel", i:"🏗️"}, {n:"باطون", en:"Concrete", i:"🚚"}, {n:"خشب", en:"Wood", i:"🪵"}, {n:"رخام", en:"Marble", i:"🏛️"}, 
+        {n:"ألمنيوم", en:"Alum", i:"🪟"}, {n:"مصاعد", en:"Lifts", i:"🛗"}, {n:"طاقة", en:"Solar", i:"☀️"}, {n:"دهان", en:"Paint", i:"🎨"},
+        {n:"صحي", en:"Plumb", i:"🚿"}, {n:"كهرباء", en:"Electric", i:"💡"}, {n:"ديكور", en:"Decor", i:"🛋️"}, {n:"تكييف", en:"AC", i:"❄️"},
+        {n:"عزل", en:"Insul", i:"🛡️"}, {n:"زجاج", en:"Glass", i:"💎"}, {n:"بلاط", en:"Tiles", i:"🧱"}, {n:"جبصين", en:"Gypsum", i:"⚪"},
+        {n:"حدائق", en:"Garden", i:"🌳"}, {n:"مسابح", en:"Pools", i:"🏊"}, {n:"أمن", en:"Security", i:"🛡️"}, {n:"مكاتب", en:"Offices", i:"📐"},
+        {n:"مقاولات", en:"Contract", i:"👷"}, {n:"نقل", en:"Transport", i:"🚛"}, {n:"رافعات", en:"Cranes", i:"🏗️"}, {n:"أدوات", en:"Tools", i:"🔧"},
+        {n:"كيماويات", en:"Chem", i:"🧪"}, {n:"خزانات", en:"Tanks", i:"🛢️"}, {n:"إنارة", en:"Light", i:"🔦"}, {n:"مطابخ", en:"Kitchen", i:"🍳"},
+        {n:"سيراميك", en:"Ceramic", i:"🧩"}, {n:"أسوار", en:"Fences", i:"🚧"}
     ];
 
-    // مصفوفة البيانات (جاهزة للـ 250 شركة)
+    // 3. الشركات (قاعدة البيانات)
     const companies = [
         { id: 1, n: "ميتالكو ستيل", c: "حديد", l: "بيروت", p: "96103761784", d: "توريد حديد البناء المبروم وكافة القياسات.", v: true },
-        { id: 2, n: "صقر الشمال", c: "خشب", l: "الشمال", p: "96103000000", d: "تجارة كافة أنواع الأخشاب الطبيعية والقشرة.", v: true },
-        { id: 3, n: "شمس لبنان", c: "طاقة", l: "الجنوب", p: "96107000000", d: "حلول الطاقة الشمسية المتكاملة للمنازل والمصانع.", v: true }
+        { id: 2, n: "صقر الشمال", c: "خشب", l: "الشمال", p: "96103000000", d: "تجارة كافة أنواع الأخشاب الطبيعية والقشرة.", v: true }
     ];
 
     function init() {
-        const bar = document.getElementById('serviceBar');
-        categories.forEach(cat => {
+        const bar = document.getElementById('catBar');
+        bar.innerHTML = '';
+        cats.forEach(c => {
             bar.innerHTML += `
-                <div class="service-item" onclick="filterByCat('${cat.n}')">
-                    <div class="icon-circle">${cat.i}</div>
-                    <span>${cat.n}</span>
+                <div class="service-card" onclick="filterCat('${c.n}')">
+                    <div class="icon-circle">${c.i}</div>
+                    <span>${lang === 'ar' ? c.n : c.en}</span>
                 </div>`;
         });
         render(companies);
@@ -164,23 +179,46 @@
     function render(data) {
         const grid = document.getElementById('compGrid');
         grid.innerHTML = '';
-        if(data.length === 0) {
-            grid.innerHTML = '<p style="text-align:center; padding:20px;">عذراً، لا يوجد شركات مطابقة لهذا البحث حالياً.</p>';
-            return;
-        }
         data.forEach(c => {
             grid.innerHTML += `
-                <div class="comp-card">
-                    ${c.v ? '<span class="v-badge">✓ موثقة</span>' : ''}
-                    <div class="comp-tags">📍 ${c.l} | ${c.c}</div>
-                    <h3 class="comp-name">${c.n}</h3>
-                    <p class="comp-desc">${c.d}</p>
+                <div class="card">
+                    ${c.v ? '<span class="verified">✓ موثقة</span>' : ''}
+                    <div class="card-loc">📍 ${lang === 'ar' ? c.l : c.l} | ${lang === 'ar' ? c.c : c.c}</div>
+                    <h3 class="card-title">${c.n}</h3>
+                    <p style="font-size:0.8rem; color:#666;">${c.d}</p>
                     <div class="card-actions">
-                        <a href="tel:${c.p}" class="btn-call">اتصال مباشر</a>
-                        <a href="https://wa.me/${c.p.replace(/^0/, '961')}" class="btn-whatsapp">واتساب</a>
+                        <a href="tel:${c.p}" class="btn-act btn-tel">${ui[lang].call}</a>
+                        <a href="https://wa.me/${c.p}" class="btn-act btn-wa">${ui[lang].wa}</a>
                     </div>
                 </div>`;
         });
+    }
+
+    function toggleLang() {
+        lang = lang === 'ar' ? 'en' : 'ar';
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.getElementById('langBtn').innerText = lang === 'ar' ? 'English' : 'العربية';
+        document.getElementById('mainSearch').placeholder = ui[lang].search;
+        document.getElementById('engGateTitle').innerText = ui[lang].engT;
+        document.getElementById('comGateTitle').innerText = ui[lang].comT;
+        document.getElementById('footerDesc').innerText = ui[lang].footer;
+        init();
+    }
+
+    function filterLoc(l, btn) {
+        document.querySelectorAll('.loc-tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        const data = l === 'الكل' ? companies : companies.filter(c => c.l === l);
+        render(data);
+    }
+
+    function filterCat(c) {
+        render(companies.filter(com => com.c === c));
+    }
+
+    function smartSearch() {
+        const v = document.getElementById('mainSearch').value.toLowerCase();
+        render(companies.filter(c => c.n.toLowerCase().includes(v) || c.c.includes(v)));
     }
 
     function startSlider() {
@@ -190,25 +228,7 @@
             slides[i].classList.remove('active');
             i = (i + 1) % slides.length;
             slides[i].classList.add('active');
-        }, 5000);
-    }
-
-    function filterByLoc(loc) {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        event.target.classList.add('active');
-        const filtered = loc === "الكل" ? companies : companies.filter(c => c.l === loc);
-        render(filtered);
-    }
-
-    function filterByCat(cat) {
-        render(companies.filter(c => c.c === cat));
-        window.scrollTo({top: 500, behavior: 'smooth'});
-    }
-
-    function smartFilter() {
-        const val = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = companies.filter(c => c.n.toLowerCase().includes(val) || c.c.includes(val));
-        render(filtered);
+        }, 4000);
     }
 
     window.onload = init;
