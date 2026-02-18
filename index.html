@@ -2,140 +2,184 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Eng Market | المنصة الهندسية</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eng Market | المنصة الهندسية الكبرى</title>
     <style>
-        :root { --primary: #0d1b2a; --brand: #c5a059; --light-bg: #f4f7f9; --white: #ffffff; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--light-bg); color: var(--primary); transition: all 0.3s; }
+        :root { --primary: #0d1b2a; --brand: #c5a059; --accent: #3a77ff; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: var(--primary); overflow-x: hidden; }
 
-        header { background: var(--primary); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 1.4rem; font-weight: 900; color: var(--brand); text-decoration: none; }
-        .lang-toggle { background: transparent; border: 1.5px solid var(--brand); color: var(--brand); padding: 6px 15px; border-radius: 5px; font-size: 0.8rem; cursor: pointer; font-weight: bold; }
+        /* Header & Lang */
+        header { background: var(--primary); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid var(--brand); }
+        .logo { font-size: 1.6rem; font-weight: 900; color: var(--brand); text-decoration: none; }
+        .lang-btn { background: transparent; border: 1px solid var(--brand); color: var(--brand); padding: 7px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
 
-        .hero-slider { width: 100%; height: 250px; position: relative; overflow: hidden; background: #000; }
-        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1s; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
-        .slide.active { opacity: 0.6; }
-        .slide-text { padding: 20px; color: white; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.8)); }
+        /* Slider - 5 Images */
+        .slider-box { width: 100%; height: 350px; position: relative; overflow: hidden; background: #000; }
+        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1.5s; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; }
+        .slide.active { opacity: 0.7; }
+        .slide-content { text-align: center; color: white; z-index: 10; padding: 20px; }
+        .slide-content h2 { font-size: 2.2rem; color: var(--brand); margin: 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
 
-        .search-section { background: white; padding: 20px 5%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        #mainSearch { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem; margin-bottom: 15px; box-sizing: border-box; }
-        .tabs-container { display: flex; overflow-x: auto; gap: 10px; scrollbar-width: none; }
-        .loc-tab { padding: 8px 18px; background: #e9ecef; border-radius: 20px; white-space: nowrap; cursor: pointer; border: none; font-weight: bold; font-size: 0.8rem; }
-        .loc-tab.active { background: var(--brand); color: white; }
+        /* Marquee Ads */
+        .ads-bar { background: var(--brand); color: var(--primary); padding: 10px 0; font-weight: bold; overflow: hidden; white-space: nowrap; border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .marquee { display: inline-block; animation: scroll 25s linear infinite; }
+        @keyframes scroll { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
 
-        .services-ribbon { display: flex; overflow-x: auto; gap: 20px; padding: 20px 5%; background: white; border-bottom: 1px solid #eee; }
-        .service-card { flex: 0 0 auto; text-align: center; width: 80px; cursor: pointer; }
-        .icon-circle { width: 60px; height: 60px; background: white; border: 2px solid var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .service-card span { font-size: 0.75rem; font-weight: bold; }
+        /* Search & Tabs */
+        .search-area { background: white; padding: 25px 5%; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        #mainSearch { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px; font-size: 1rem; outline: none; margin-bottom: 20px; transition: 0.3s; }
+        #mainSearch:focus { border-color: var(--brand); }
+        .tabs { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; scrollbar-width: none; }
+        .tab { padding: 10px 22px; background: #eee; border-radius: 30px; border: none; cursor: pointer; font-weight: bold; white-space: nowrap; transition: 0.3s; }
+        .tab.active { background: var(--brand); color: white; }
 
-        .container { padding: 20px 5%; max-width: 1200px; margin: auto; }
-        .comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 12px; padding: 15px; border: 1px solid #eee; }
-        .btn-act { padding: 10px; text-align: center; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 0.8rem; display: inline-block; width: 45%; }
-        .btn-tel { background: var(--primary); color: white; }
-        .btn-wa { background: #25d366; color: white; float: left; }
+        /* Icons Ribbon - 30 Services */
+        .services-bar { background: white; padding: 25px 0; border-bottom: 1px solid #eee; }
+        .icons-container { display: flex; overflow-x: auto; gap: 25px; padding: 0 5%; scrollbar-width: none; }
+        .icons-container::-webkit-scrollbar { display: none; }
+        .icon-item { flex: 0 0 auto; text-align: center; width: 85px; cursor: pointer; }
+        .icon-circle { width: 65px; height: 65px; background: white; border: 2px solid var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 10px; box-shadow: 0 5px 15px rgba(197, 160, 89, 0.2); transition: 0.3s; }
+        .icon-item:hover .icon-circle { transform: translateY(-5px); background: var(--brand); color: white; }
+        .icon-item span { font-size: 0.8rem; font-weight: bold; color: var(--primary); }
 
-        footer { background: var(--primary); color: white; text-align: center; padding: 30px; margin-top: 40px; border-top: 4px solid var(--brand); }
+        /* Company Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; padding: 40px 5%; }
+        .card { background: white; border-radius: 15px; padding: 20px; border: 1px solid #eee; position: relative; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+        .v-badge { position: absolute; top: 15px; left: 15px; background: #27ae60; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
+        .card-loc { color: var(--brand); font-weight: bold; font-size: 0.85rem; }
+        .card-title { font-size: 1.4rem; margin: 10px 0; color: var(--primary); }
+        .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
+        .btn { padding: 12px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        .btn-call { background: var(--primary); color: white; }
+        .btn-wa { background: #25d366; color: white; }
+
+        /* Gates */
+        .gates { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 5% 50px; }
+        .gate-box { background: var(--primary); color: white; padding: 30px; border-radius: 15px; text-align: center; }
+        .gate-box.white { background: white; color: var(--primary); border: 2px solid var(--primary); }
+
+        footer { background: var(--primary); color: white; text-align: center; padding: 50px; border-top: 5px solid var(--brand); }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="#" class="logo" id="siteLogo">ENG MARKET</a>
-    <button class="lang-toggle" onclick="changeLang()" id="langBtn">English</button>
+    <a href="#" class="logo" id="logoText">ENG MARKET</a>
+    <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">English</button>
 </header>
 
-<div class="hero-slider" id="slider">
-    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=800')">
-        <div class="slide-text"><h2 id="s1">أفضل شركات الحديد</h2></div>
+<div class="slider-box" id="slider">
+    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=1200')">
+        <div class="slide-content"><h2 id="s1">أكبر تجمع للموردين في لبنان</h2></div>
     </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1503387762-592dee58c460?q=80&w=800')">
-        <div class="slide-text"><h2 id="s2">خدمات الباطون</h2></div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1503387762-592dee58c460?q=80&w=1200')">
+        <div class="slide-content"><h2 id="s2">تواصل مباشر مع شركات البناء</h2></div>
+    </div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1200')">
+        <div class="slide-content"><h2 id="s3">أنظمة طاقة متطورة</h2></div>
+    </div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?q=80&w=1200')">
+        <div class="slide-content"><h2 id="s4">عروض الحديد اليومية</h2></div>
+    </div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200')">
+        <div class="slide-content"><h2 id="s5">تجهيزات هندسية متكاملة</h2></div>
     </div>
 </div>
 
-<div class="search-section">
-    <input type="text" id="mainSearch" onkeyup="smartSearch()" placeholder="ابحث عن شركة...">
-    <div class="tabs-container" id="locTabs">
-        <button class="loc-tab active" data-key="all" onclick="filterLoc('الكل', this)">كل لبنان</button>
-        <button class="loc-tab" data-key="beirut" onclick="filterLoc('بيروت', this)">بيروت</button>
-        <button class="loc-tab" data-key="north" onclick="filterLoc('الشمال', this)">الشمال</button>
-        <button class="loc-tab" data-key="south" onclick="filterLoc('الجنوب', this)">الجنوب</button>
+<div class="ads-bar">
+    <div class="marquee" id="adText">📢 إعلان: خصم 15% لمشتركي المنصة لدى شركة ميتالكو هذا الشهر - سجل شركتك الآن للظهور هنا 📢</div>
+</div>
+
+<div class="search-area">
+    <input type="text" id="mainSearch" onkeyup="smartSearch()" placeholder="ابحث عن شركة، خدمة، أو اختصاص...">
+    <div class="tabs">
+        <button class="tab active" onclick="filterLoc('الكل', this)" data-key="all">كل لبنان</button>
+        <button class="tab" onclick="filterLoc('بيروت', this)" data-key="beirut">بيروت</button>
+        <button class="tab" onclick="filterLoc('الشمال', this)" data-key="north">الشمال</button>
+        <button class="tab" onclick="filterLoc('الجنوب', this)" data-key="south">الجنوب</button>
+        <button class="tab" onclick="filterLoc('البقاع', this)" data-key="beqaa">البقاع</button>
+        <button class="tab" onclick="filterLoc('الجبل', this)" data-key="mount">الجبل</button>
     </div>
 </div>
 
-<div class="services-ribbon" id="catBar"></div>
-
-<div class="container">
-    <div class="comp-grid" id="compGrid"></div>
+<div class="services-bar">
+    <div class="icons-container" id="catBar"></div>
 </div>
 
-<footer id="footerText">ENG MARKET | أكبر تجمع للموردين في لبنان</footer>
+<div class="grid" id="compGrid"></div>
+
+<div class="gates">
+    <div class="gate-box" onclick="window.open('https://wa.me/96170822806')">
+        <h4 id="g1">بوابة المهندسين</h4>
+        <small id="g1s">سجل الآن مجاناً</small>
+    </div>
+    <div class="gate-box white" onclick="window.open('https://wa.me/96170822806')">
+        <h4 id="g2">بوابة الموردين</h4>
+        <small id="g2s">أضف شركتك للمنصة</small>
+    </div>
+</div>
+
+<footer id="footerText">
+    ENG MARKET LEBANON © 2026 | جميع الحقوق محفوظة
+    <br><br>
+    <img src="https://www.cutercounter.com/hits.php?id=gvxpoxn&nd=6&style=1" alt="hits">
+</footer>
 
 <script>
-    // 1. البيانات والترجمة
     let currentLang = 'ar';
-    const translations = {
+    const i18n = {
         ar: {
-            logo: "ENG MARKET", langBtn: "English", search: "ابحث عن شركة...", 
-            all: "كل لبنان", beirut: "بيروت", north: "الشمال", south: "الجنوب",
-            footer: "ENG MARKET | أكبر تجمع للموردين في لبنان", call: "اتصال", wa: "واتساب",
-            s1: "أفضل شركات الحديد", s2: "خدمات الباطون"
+            logo: "ENG MARKET", langBtn: "English", search: "ابحث عن شركة، خدمة، أو اختصاص...",
+            all: "كل لبنان", beirut: "بيروت", north: "الشمال", south: "الجنوب", beqaa: "البقاع", mount: "الجبل",
+            g1: "بوابة المهندسين", g1s: "سجل الآن مجاناً", g2: "بوابة الموردين", g2s: "أضف شركتك للمنصة",
+            footer: "ENG MARKET LEBANON © 2026 | جميع الحقوق محفوظة", call: "اتصال", wa: "واتساب"
         },
         en: {
-            logo: "ENG MARKET", langBtn: "العربية", search: "Search companies...", 
-            all: "All Lebanon", beirut: "Beirut", north: "North", south: "South",
-            footer: "ENG MARKET | Largest Suppliers Hub in Lebanon", call: "Call", wa: "WhatsApp",
-            s1: "Top Steel Companies", s2: "Concrete Services"
+            logo: "ENG MARKET", langBtn: "العربية", search: "Search for companies or services...",
+            all: "All Lebanon", beirut: "Beirut", north: "North", south: "South", beqaa: "Beqaa", mount: "Mount",
+            g1: "Engineers Portal", g1s: "Join for free", g2: "Suppliers Portal", g2s: "Add your company",
+            footer: "ENG MARKET LEBANON © 2026 | All Rights Reserved", call: "Call", wa: "WhatsApp"
         }
     };
 
-    const cats = [
-        {n:"حديد", en:"Steel", i:"🏗️"}, {n:"باطون", en:"Concrete", i:"🚚"}, 
-        {n:"خشب", en:"Wood", i:"🪵"}, {n:"رخام", en:"Marble", i:"🏛️"},
-        {n:"طاقة", en:"Solar", i:"☀️"}, {n:"كهرباء", en:"Electric", i:"💡"}
+    const categories = [
+        {n:"حديد", en:"Steel", i:"🏗️"}, {n:"باطون", en:"Concrete", i:"🚚"}, {n:"خشب", en:"Wood", i:"🪵"}, {n:"رخام", en:"Marble", i:"🏛️"}, 
+        {n:"ألمنيوم", en:"Alum", i:"🪟"}, {n:"مصاعد", en:"Lifts", i:"🛗"}, {n:"طاقة", en:"Solar", i:"☀️"}, {n:"دهان", en:"Paint", i:"🎨"},
+        {n:"صحي", en:"Plumb", i:"🚿"}, {n:"كهرباء", en:"Electric", i:"💡"}, {n:"ديكور", en:"Decor", i:"🛋️"}, {n:"تكييف", en:"AC", i:"❄️"},
+        {n:"مكاتب", en:"Office", i:"📐"}, {n:"مقاولات", en:"Contract", i:"👷"}, {n:"مطابخ", en:"Kitchen", i:"🍳"}
     ];
 
     const companies = [
-        { n: "ميتالكو", c: "حديد", l: "بيروت", p: "96103761784", d: "توريد حديد البناء" },
-        { n: "صقر الشمال", c: "خشب", l: "الشمال", p: "96103000000", d: "تجارة الأخشاب" }
+        { n: "ميتالكو ستيل", c: "حديد", l: "بيروت", p: "96103761784", d: "توريد حديد البناء بأفضل الأسعار.", v: true },
+        { n: "صقر الشمال", c: "خشب", l: "الشمال", p: "96103000000", d: "تجارة كافة أنواع الأخشاب الطبيعية.", v: true },
+        { n: "كهرباء الجنوب", c: "كهرباء", l: "الجنوب", p: "96107000000", d: "تمديدات صناعية ومواد كهربائية.", v: true }
     ];
 
-    // 2. دالة تغيير اللغة (المصححة)
-    function changeLang() {
+    function toggleLanguage() {
         currentLang = currentLang === 'ar' ? 'en' : 'ar';
-        const t = translations[currentLang];
-        
-        // تحديث اتجاه الصفحة
+        const t = i18n[currentLang];
         document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-        document.documentElement.lang = currentLang;
-
-        // تحديث النصوص
-        document.getElementById('siteLogo').innerText = t.logo;
+        document.getElementById('logoText').innerText = t.logo;
         document.getElementById('langBtn').innerText = t.langBtn;
         document.getElementById('mainSearch').placeholder = t.search;
-        document.getElementById('footerText').innerText = t.footer;
-        document.getElementById('s1').innerText = t.s1;
-        document.getElementById('s2').innerText = t.s2;
-
-        // تحديث أزرار المناطق
-        const tabs = document.querySelectorAll('.loc-tab');
-        tabs.forEach(tab => {
+        document.getElementById('g1').innerText = t.g1; document.getElementById('g1s').innerText = t.g1s;
+        document.getElementById('g2').innerText = t.g2; document.getElementById('g2s').innerText = t.g2s;
+        document.getElementById('footerText').innerHTML = t.footer + '<br><br><img src="https://www.cutercounter.com/hits.php?id=gvxpoxn&nd=6&style=1">';
+        
+        document.querySelectorAll('.tab').forEach(tab => {
             const key = tab.getAttribute('data-key');
             if(t[key]) tab.innerText = t[key];
         });
-
-        // إعادة بناء الأيقونات والشركات باللغة الجديدة
         init();
     }
 
     function init() {
         const bar = document.getElementById('catBar');
         bar.innerHTML = '';
-        cats.forEach(c => {
+        categories.forEach(c => {
             bar.innerHTML += `
-                <div class="service-card" onclick="filterCat('${c.n}')">
+                <div class="icon-item" onclick="filterCat('${c.n}')">
                     <div class="icon-circle">${c.i}</div>
                     <span>${currentLang === 'ar' ? c.n : c.en}</span>
                 </div>`;
@@ -146,26 +190,25 @@
     function render(data) {
         const grid = document.getElementById('compGrid');
         grid.innerHTML = '';
-        const t = translations[currentLang];
         data.forEach(c => {
             grid.innerHTML += `
                 <div class="card">
-                    <div style="color:var(--brand); font-weight:bold; font-size:0.7rem;">📍 ${c.l}</div>
-                    <h3 style="margin:5px 0;">${c.n}</h3>
-                    <p style="font-size:0.8rem; color:#666;">${c.d}</p>
-                    <div style="margin-top:15px;">
-                        <a href="tel:${c.p}" class="btn-act btn-tel">${t.call}</a>
-                        <a href="https://wa.me/${c.p}" class="btn-act btn-wa">${t.wa}</a>
+                    ${c.v ? '<span class="v-badge">موثق</span>' : ''}
+                    <div class="card-loc">📍 ${c.l} | ${c.c}</div>
+                    <h3 class="card-title">${c.n}</h3>
+                    <p style="font-size:0.85rem; color:#666;">${c.d}</p>
+                    <div class="card-actions">
+                        <a href="tel:${c.p}" class="btn btn-call">${i18n[currentLang].call}</a>
+                        <a href="https://wa.me/${c.p}" class="btn btn-wa">${i18n[currentLang].wa}</a>
                     </div>
                 </div>`;
         });
     }
 
-    // الفلترة والبحث
-    function filterLoc(l, btn) {
-        document.querySelectorAll('.loc-tab').forEach(t => t.classList.remove('active'));
+    function filterLoc(loc, btn) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         btn.classList.add('active');
-        render(l === 'الكل' ? companies : companies.filter(c => c.l === l));
+        render(loc === 'الكل' ? companies : companies.filter(c => c.l === loc));
     }
 
     function filterCat(cat) {
@@ -173,11 +216,10 @@
     }
 
     function smartSearch() {
-        const v = document.getElementById('mainSearch').value.toLowerCase();
-        render(companies.filter(c => c.n.toLowerCase().includes(v)));
+        const val = document.getElementById('mainSearch').value.toLowerCase();
+        render(companies.filter(c => c.n.toLowerCase().includes(val) || c.c.includes(val)));
     }
 
-    // السلايدر
     setInterval(() => {
         const slides = document.querySelectorAll('.slide');
         let active = document.querySelector('.slide.active');
@@ -188,6 +230,5 @@
 
     window.onload = init;
 </script>
-
 </body>
 </html>
