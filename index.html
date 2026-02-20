@@ -259,6 +259,115 @@
     document.getElementById('ironPrice').innerText = "$610"; 
     document.getElementById('concretePrice').innerText = "$85";
 </script>
+    
+<style>
+    .ad-request-section {
+        background: #fff;
+        margin: 20px 5% 40px;
+        padding: 25px;
+        border-radius: 15px;
+        border-top: 5px solid var(--brand);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    .ad-request-section h3 {
+        color: var(--primary);
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .form-group { margin-bottom: 15px; text-align: right; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; }
+    .form-group input, .form-group select, .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-family: inherit;
+    }
+    .file-upload {
+        background: #f8f9fa;
+        border: 2px dashed var(--brand);
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .btn-submit-ad {
+        background: var(--brand);
+        color: var(--primary);
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="ad-request-section" id="adPortal">
+    <h3>🖼️ طلب إعلان أو تعديل بيانات</h3>
+    <p style="font-size: 0.85rem; color: #666;">يمكنك إرسال بيانات شركتك، الصور، أو طلب تعديل ليتم نشره في خانة الإعلانات أو الدليل.</p>
+    
+    <div class="form-group">
+        <label>اسم الشركة</label>
+        <input type="text" id="compName" placeholder="أدخل اسم شركتك الرسمي">
+    </div>
+
+    <div class="form-group">
+        <label>نوع الطلب</label>
+        <select id="requestType">
+            <option value="إعلان جديد">إعلان جديد في السلايدر</option>
+            <option value="تعديل بيانات">تعديل بيانات حالية</option>
+            <option value="انضمام للدليل">طلب انضمام للدليل (250 شركة)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>صورة الإعلان أو اللوجو</label>
+        <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+            <span id="fileName">اضغط هنا لارفاق الصورة 📁</span>
+            <input type="file" id="fileInput" style="display:none" onchange="updateFileName()">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>تفاصيل إضافية</label>
+        <textarea id="moreDetails" rows="3" placeholder="اكتب هنا أي ملاحظات أو أرقام تواصل إضافية..."></textarea>
+    </div>
+
+    <button class="btn-submit-ad" onclick="sendAdToManager()">إرسال الطلب للمراجعة</button>
+</div>
+
+<script>
+    function updateFileName() {
+        const input = document.getElementById('fileInput');
+        const fileName = input.files[0] ? input.files[0].name : "اضغط هنا لارفاق الصورة 📁";
+        document.getElementById('fileName').innerText = fileName;
+    }
+
+    function sendAdToManager() {
+        const name = document.getElementById('compName').value;
+        const type = document.getElementById('requestType').value;
+        const details = document.getElementById('moreDetails').value;
+        const file = document.getElementById('fileInput').files[0];
+
+        if(!name) { alert("يرجى إدخال اسم الشركة"); return; }
+
+        // برمجة توجيه البيانات للواتساب الخاص بك مع شرح الطلب
+        const message = `طلب جديد من المنصة:
+- الشركة: ${name}
+- النوع: ${type}
+- التفاصيل: ${details}
+* يرجى انتظار تحميل الصورة وإرسالها في الرسالة التالية.`;
+
+        const waUrl = `https://wa.me/96170822806?text=${encodeURIComponent(message)}`;
+        window.open(waUrl, '_blank');
+    }
+</script>
 
 </body>
 </html>
