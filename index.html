@@ -2,111 +2,98 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Eng Market | المنصة الهندسية العالمية</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Eng Market | Master</title>
     <style>
-        :root { 
-            --primary: #0d1b2a; /* أزرق ملكي */
-            --brand: #c5a059; /* ذهبي */
-            --bg: #f4f7f9; 
-            --white: #ffffff;
-            --success: #27ae60;
-        }
-
-        /* 1. بنية الهاتف أولاً (Mobile-First) */
-        body { 
-            font-family: system-ui, -apple-system, sans-serif; 
-            margin: 0; 
-            background: var(--bg); 
-            color: var(--primary);
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* 2. الهيدر المطور (Sticky Header) */
-        header { 
-            background: var(--primary); 
-            padding: 12px 5%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            position: sticky; 
-            top: 0; 
-            z-index: 2000; 
-            border-bottom: 3px solid var(--brand);
-        }
-
-        .logo { font-size: 1.4rem; font-weight: 900; color: var(--brand); text-decoration: none; }
-
-        /* 3. زر اللغة الديناميكي (RTL/LTR) */
-        .lang-btn { 
-            background: transparent; 
-            border: 1.5px solid var(--brand); 
-            color: var(--brand); 
-            padding: 5px 12px; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            font-weight: bold;
-        }
-
-        /* 4. السلايدر الخماسي (Vanilla JS Slider) */
-        .hero { width: 100%; height: 300px; position: relative; overflow: hidden; background: #000; }
-        .slide { 
-            position: absolute; width: 100%; height: 100%; opacity: 0; 
-            transition: 1s ease-in-out; background-size: cover; background-position: center; 
-            display: flex; align-items: center; justify-content: center;
-        }
+        :root { --p: #0d1b2a; --b: #c5a059; --w: #fff; }
+        body { font-family: sans-serif; margin: 0; background: #f4f7f9; }
+        header { background: var(--p); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--b); color: var(--b); }
+        .lang-btn { border: 1px solid var(--b); color: var(--b); background: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .hero { width: 100%; height: 200px; background: #000; position: relative; overflow: hidden; }
+        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1s; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: var(--b); font-weight: bold; font-size: 1.2rem; text-align: center; }
         .slide.active { opacity: 0.6; }
-        .slide-content h2 { color: var(--brand); text-align: center; font-size: 1.8rem; text-shadow: 2px 2px 10px #000; padding: 20px; }
+        .search-box { padding: 20px; background: var(--w); }
+        #sInput { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .ribbon { display: flex; overflow-x: auto; gap: 15px; padding: 15px; background: var(--w); }
+        .icon-item { text-align: center; min-width: 60px; }
+        .circle { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--b); display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; font-size: 1.5rem; background: var(--w); }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 15px; padding: 15px; }
+        .card { background: var(--w); padding: 15px; border-radius: 10px; border: 1px solid #eee; position: relative; }
+        .v { position: absolute; top: 10px; left: 10px; color: green; font-size: 0.7rem; font-weight: bold; }
+        .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .btn { padding: 10px; text-align: center; border-radius: 5px; text-decoration: none; font-weight: bold; color: var(--w); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
 
-        /* 5. شريط الإعلانات الذهبي (Keyframe Animation) */
-        .ad-marquee { background: var(--brand); color: var(--primary); padding: 8px 0; font-weight: bold; overflow: hidden; }
-        .mq-inner { display: inline-block; white-space: nowrap; animation: scroll 20s linear infinite; }
-        @keyframes scroll { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+<header>
+    <div style="font-weight:900;">ENG MARKET</div>
+    <button class="lang-btn" onclick="tg()" id="lb">English</button>
+</header>
 
-        /* 6. محرك البحث والفلترة (Smart Search Like OLX) */
-        .search-container { background: var(--white); padding: 20px 5%; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        #searchBar { 
-            width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px; 
-            font-size: 1rem; outline: none; transition: 0.3s;
-        }
-        #searchBar:focus { border-color: var(--brand); }
+<div class="hero">
+    <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?w=400')"><h2>دليلك الهندسي</h2></div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1503387762-592dee58c460?w=400')"><h2>أفضل الموردين</h2></div>
+</div>
 
-        /* 7. الفلترة الجغرافية (Location Tabs) */
-        .tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px 0; scrollbar-width: none; }
-        .tab-btn { 
-            padding: 8px 20px; background: #eee; border: none; border-radius: 20px; 
-            cursor: pointer; font-weight: bold; white-space: nowrap;
-        }
-        .tab-btn.active { background: var(--brand); color: white; }
+<div class="search-box">
+    <input type="text" id="sInput" onkeyup="srch()" placeholder="ابحث هنا...">
+</div>
 
-        /* 8. شريط الاختصاصات الدائري (30 Services Ribbon) */
-        .ribbon { display: flex; overflow-x: auto; gap: 20px; padding: 20px 5%; background: var(--white); scrollbar-width: none; }
-        .ribbon::-webkit-scrollbar { display: none; }
-        .icon-item { text-align: center; min-width: 75px; cursor: pointer; }
-        .icon-circle { 
-            width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--brand); 
-            display: flex; align-items: center; justify-content: center; font-size: 1.6rem; 
-            margin: 0 auto 8px; box-shadow: 0 4px 10px rgba(197, 160, 89, 0.2); 
-        }
+<div class="ribbon" id="rb"></div>
+<div class="grid" id="gr"></div>
 
-        /* 9. شبكة الشركات (Grid View Like IndiaMART) */
-        .main-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 25px 5%; }
-        .card { 
-            background: var(--white); border-radius: 15px; padding: 20px; border: 1px solid #eee; 
-            position: relative; transition: 0.3s; 
-        }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .v-badge { 
-            position: absolute; top: 15px; left: 15px; background: var(--success); 
-            color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; 
-        }
+<script>
+    let L = 'ar';
+    const ui = {
+        ar: { s: "ابحث هنا...", c: "اتصال", w: "واتساب", b: "English" },
+        en: { s: "Search here...", c: "Call", w: "WhatsApp", b: "العربية" }
+    };
+    const cats = [
+        {n:"حديد", e:"Steel", i:"🏗️"}, {n:"باطون", e:"Concrete", i:"🚚"}, {n:"طاقة", e:"Solar", i:"☀️"}, {n:"كهرباء", e:"Electric", i:"💡"}
+    ];
+    const comps = [
+        {n: "ميتالكو ستيل", c: "حديد", p: "96103761784", d: "توريد حديد البناء", v: true},
+        {n: "صقر الشمال", c: "خشب", p: "96103000000", d: "تجارة الأخشاب", v: true}
+    ];
 
-        /* 10. أزرار التواصل المباشر (Direct Linking) */
-        .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .btn { padding: 12px; border-radius: 8px; text-decoration: none; text-align: center; font-weight: bold; font-size: 0.9rem; }
-        .btn-call { background: var(--primary); color: white; }
-        .btn-wa { background: #25d366; color: white; }
+    function tg() {
+        L = L === 'ar' ? 'en' : 'ar';
+        document.documentElement.dir = L === 'ar' ? 'rtl' : 'ltr';
+        document.getElementById('lb').innerText = ui[L].b;
+        document.getElementById('sInput').placeholder = ui[L].s;
+        init();
+    }
 
-        /* 11. بوابات التسجيل (Portals) */
-        .gates { padding: 0 5% 40px; display: grid; grid-template-columns: 1fr 1fr; gap:
+    function init() {
+        const r = document.getElementById('rb'); r.innerHTML = '';
+        cats.forEach(c => {
+            r.innerHTML += `<div class="icon-item" onclick="flt('${c.n}')"><div class="circle">${c.i}</div><span style="font-size:0.6rem;font-weight:bold">${L==='ar'?c.n:c.e}</span></div>`;
+        });
+        rndr(comps);
+    }
+
+    function rndr(d) {
+        const g = document.getElementById('gr'); g.innerHTML = '';
+        d.forEach(c => {
+            g.innerHTML += `<div class="card">${c.v?'<span class="v">✓ موثق</span>':''}<div style="color:var(--b);font-size:0.7rem">📍 ${c.c}</div><h3 style="margin:5px 0">${c.n}</h3><p style="font-size:0.7rem;color:#666">${c.d}</p><div class="btns"><a href="tel:${c.p}" class="btn" style="background:var(--p)">${ui[L].c}</a><a href="https://wa.me/${c.p}" class="btn" style="background:#25d366">${ui[L].w}</a></div></div>`;
+        });
+    }
+
+    function srch() {
+        const v = document.getElementById('sInput').value.toLowerCase();
+        rndr(comps.filter(c => c.n.toLowerCase().includes(v)));
+    }
+    
+    function flt(cat) { rndr(comps.filter(c => c.c === cat)); }
+
+    setInterval(() => {
+        let s = document.querySelectorAll('.slide'), a = document.querySelector('.slide.active');
+        a.classList.remove('active');
+        (a.nextElementSibling || s[0]).classList.add('active');
+    }, 3000);
+
+    window.onload = init;
+</script>
+</body>
+</html>
