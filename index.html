@@ -368,6 +368,263 @@
         window.open(waUrl, '_blank');
     }
 </script>
+<style>
+    .eng-calc { background: #fff; margin: 20px 5%; padding: 25px; border-radius: 15px; border: 2px solid var(--primary); }
+    .calc-box { display: flex; gap: 10px; margin-top: 10px; }
+    .calc-box input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+    .calc-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+    #calcResult { margin-top: 15px; font-weight: bold; color: var(--brand); text-align: center; display: block; }
+</style>
+
+<div class="eng-calc">
+    <h3 style="margin-top:0">🧮 حاسبة سريعة (تقدير كمية الباطون)</h3>
+    <p style="font-size:0.8rem; color:#666;">أدخل المساحة والسمك لتقدير عدد الأمتار المكعبة المطلوبة.</p>
+    <div class="calc-box">
+        <input type="number" id="area" placeholder="المساحة (م2)">
+        <input type="number" id="depth" placeholder="السمك (سم)">
+        <button class="calc-btn" onclick="calculateConcrete()">احسب</button>
+    </div>
+    <span id="calcResult"></span>
+</div>
+
+<script>
+    function calculateConcrete() {
+        const area = document.getElementById('area').value;
+        const depth = document.getElementById('depth').value;
+        if(area && depth) {
+            const total = (area * (depth / 100)).toFixed(2);
+            document.getElementById('calcResult').innerText = `الكمية التقديرية: ${total} متر مكعب`;
+        }
+    }
+</script>
+<style>
+    .tenders-board { background: #0d1b2a; color: white; margin: 20px 5%; padding: 25px; border-radius: 15px; }
+    .tender-item { background: rgba(255,255,255,0.1); padding: 15px; border-right: 4px solid var(--brand); margin-bottom: 10px; border-radius: 5px; }
+    .tender-tag { background: var(--brand); color: #000; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; }
+</style>
+
+<div class="tenders-board">
+    <h3 style="color:var(--brand); margin-top:0;">🏗️ طلبات مواد عاجلة (للموردين)</h3>
+    <div id="tendersList">
+        <div class="tender-item">
+            <span class="tender-tag">مطلوب فوري</span>
+            <div style="margin:5px 0">توريد خشب طوبار لمشروع سكني في بعبدا</div>
+            <small>بواسطة: مكتب المهندس سامر .ج | منذ ساعتين</small>
+        </div>
+        <div class="tender-item">
+            <span class="tender-tag">استدراج عروض</span>
+            <div style="margin:5px 0">تركيب نظام طاقة شمسية 200 Amps في البقاع</div>
+            <small>بواسطة: شركة المقاولات الحديثة | منذ 5 ساعات</small>
+        </div>
+    </div>
+    <button class="btn-submit-ad" style="background:#fff; color:#0d1b2a; margin-top:10px;" onclick="window.open('https://wa.me/96170822806')">أضف طلب مواد الآن</button>
+</div>
+<style>
+    /* تصميم شريط الفلترة العائم */
+    .olx-filter-bar {
+        position: fixed;
+        top: 70px; /* يظهر تحت الهيدر مباشرة */
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 10px 5%;
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 900;
+        transform: translateY(-150%); /* مخفي افتراضياً */
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        scrollbar-width: none;
+    }
+    .olx-filter-bar::-webkit-scrollbar { display: none; }
+    
+    .olx-filter-bar.visible {
+        transform: translateY(0);
+    }
+
+    .filter-chip {
+        padding: 6px 18px;
+        background: #f0f2f5;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        color: var(--primary);
+    }
+
+    .filter-chip.active {
+        background: var(--brand);
+        color: var(--primary);
+        border-color: var(--brand);
+    }
+
+    /* ميزة OLX: عداد النتائج العائم */
+    .results-count {
+        position: fixed;
+        bottom: 85px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary);
+        color: var(--brand);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        z-index: 1001;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        display: none; /* يظهر عند التمرير */
+    }
+</style>
+
+<div class="olx-filter-bar" id="smartFilter">
+    <div class="filter-chip active" onclick="smartFilter('الكل', this)">الكل</div>
+    <div class="filter-chip" onclick="smartFilter('مورد', this)">🚚 موردين</div>
+    <div class="filter-chip" onclick="smartFilter('مهندس', this)">📐 مهندسين</div>
+    <div class="filter-chip" onclick="smartFilter('مصنع', this)">🏭 مصانع</div>
+    <div class="filter-chip" onclick="smartFilter('مقاول', this)">🏗️ مقاولين</div>
+</div>
+
+<div class="results-count" id="resCount">عرض 250 شركة هندسية</div>
+
+<script>
+    // وظيفة إظهار/إخفاء الفلتر عند التمرير
+    window.addEventListener('scroll', function() {
+        const filter = document.getElementById('smartFilter');
+        const count = document.getElementById('resCount');
+        
+        if (window.scrollY > 300) {
+            filter.classList.add('visible');
+            count.style.display = 'block';
+        } else {
+            filter.classList.remove('visible');
+            count.style.display = 'none';
+        }
+    });
+
+    // وظيفة الفلترة الذكية (OLX Logic)
+    function smartFilter(type, element) {
+        // تغيير شكل الأزرار
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        element.classList.add('active');
+
+        // تنفيذ الفلترة على الشبكة (Grid)
+        const cards = document.querySelectorAll('.card');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            if (type === 'الكل' || card.innerText.includes(type)) {
+                card.style.display = 'block';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // تحديث العداد
+        document.getElementById('resCount').innerText = `وجدنا ${visibleCount} نتيجة لك`;
+    }
+</script>
+<style>
+    /* 1. تنسيق القائمة السفلية للهواتف */
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--primary);
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        border-top: 2px solid var(--brand);
+        z-index: 2000;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+    }
+    .nav-item {
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.7rem;
+        text-align: center;
+        flex: 1;
+    }
+    .nav-item i { display: block; font-size: 1.2rem; margin-bottom: 3px; }
+    .nav-item:hover { color: var(--brand); }
+
+    /* 2. زر العودة للأعلى والوضع الليلي */
+    .floating-tools {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1500;
+    }
+    .tool-btn {
+        width: 45px;
+        height: 45px;
+        background: var(--brand);
+        border: none;
+        border-radius: 50%;
+        color: var(--primary);
+        font-size: 1.2rem;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 3. كود الوضع الليلي (Dark Mode) */
+    body.dark-theme {
+        background: #050a0f !important;
+        color: #e0e0e0 !important;
+    }
+    body.dark-theme .card, body.dark-theme .search-area, body.dark-theme .services-bar {
+        background: #0d1b2a !important;
+        border-color: #1b263b !important;
+        color: white !important;
+    }
+</style>
+
+<div class="bottom-nav">
+    <a href="#" class="nav-item">🏠<br>الرئيسية</a>
+    <a href="#adPortal" class="nav-item">➕<br>أضف شركتك</a>
+    <a href="tel:96170822806" class="nav-item">📞<br>اتصل بنا</a>
+    <a href="javascript:void(0)" onclick="toggleDarkMode()" class="nav-item">🌙<br>الوضع الليلي</a>
+</div>
+
+<div class="floating-tools">
+    <button class="tool-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+</div>
+
+<script>
+    // برمجة الوضع الليلي
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-theme');
+        const isDark = document.body.classList.contains('dark-theme');
+        // تغيير أيقونة الزر
+        event.currentTarget.innerHTML = isDark ? "☀️<br>الوضع النهاري" : "🌙<br>الوضع الليلي";
+    }
+
+    // إضافة لمسة جمالية: إخفاء القائمة السفلية عند التمرير لأسفل وإظهارها عند التمرير لأعلى
+    let lastScroll = 0;
+    window.addEventListener("scroll", () => {
+        const currentScroll = window.pageYOffset;
+        const nav = document.querySelector(".bottom-nav");
+        if (currentScroll > lastScroll && currentScroll > 100) {
+            nav.style.transform = "translateY(100%)";
+            nav.style.transition = "0.3s";
+        } else {
+            nav.style.transform = "translateY(0)";
+        }
+        lastScroll = currentScroll;
+    });
+</script>
 
 </body>
 </html>
