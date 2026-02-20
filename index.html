@@ -695,6 +695,79 @@
 
     <a href="#tendersList" class="footer-nav-item">
         <span class="icon">🌟</span>
+<script>
+    // 1. قاموس المصطلحات (يمكنك إضافة أي كلمة تريد ترجمتها هنا)
+    const translations = {
+        ar: {
+            title: "ENG MARKET",
+            hero1: "أكبر تجمع للموردين في لبنان",
+            hero2: "تواصل مع شركات البناء مباشرة",
+            searchPlaceholder: "ابحث عن شركة أو خدمة...",
+            allLebanon: "كل لبنان",
+            beirut: "بيروت",
+            north: "الشمال",
+            south: "الجنوب",
+            mainPage: "الرئيسية",
+            myAccount: "حسابي",
+            myOrders: "طلباتي",
+            excellence: "التميز"
+        },
+        en: {
+            title: "ENG MARKET",
+            hero1: "Largest Supplier Hub in Lebanon",
+            hero2: "Connect with Construction Firms Directly",
+            searchPlaceholder: "Search for company or service...",
+            allLebanon: "All Lebanon",
+            beirut: "Beirut",
+            north: "North",
+            south: "South",
+            mainPage: "Home",
+            myAccount: "Account",
+            myOrders: "Orders",
+            excellence: "Elite"
+        }
+    };
+
+    // 2. وظيفة التبديل المتطورة
+    function toggleLang() {
+        // تبديل المتغير
+        currentLang = (currentLang === 'ar') ? 'en' : 'ar';
+        
+        // تغيير اتجاه الصفحة
+        document.documentElement.dir = (currentLang === 'ar') ? 'rtl' : 'ltr';
+        document.documentElement.lang = currentLang;
+
+        // تحديث نصوص العناصر (سنعطي كل عنصر ID لترجمته)
+        updateTextContent();
+
+        // تغيير نص الزر نفسه
+        document.getElementById('langBtn').innerText = (currentLang === 'ar') ? 'English' : 'العربية';
+    }
+
+    function updateTextContent() {
+        const lang = translations[currentLang];
+        
+        // ترجمة العناصر الأساسية (تأكد من وجود هذه الـ IDs في كودك)
+        if(document.querySelector('.logo')) document.querySelector('.logo').innerText = lang.title;
+        if(document.getElementById('mainSearch')) document.getElementById('mainSearch').placeholder = lang.searchPlaceholder;
+        
+        // ترجمة أزرار التنقل السفلية (التي أضفناها مؤخراً)
+        const navLabels = document.querySelectorAll('.nav-label, .label');
+        if(navLabels.length >= 4) {
+            navLabels[0].innerText = lang.mainPage;
+            navLabels[1].innerText = lang.myAccount;
+            navLabels[2].innerText = lang.myOrders;
+            navLabels[3].innerText = lang.excellence;
+        }
+
+        // ترجمة السلايدر (إذا كان نشطاً)
+        const slides = document.querySelectorAll('.slide h2');
+        if(slides.length > 0) {
+            slides[0].innerText = lang.hero1;
+            slides[1].innerText = lang.hero2;
+        }
+    }
+</script>
 
 </body>
 </html>
