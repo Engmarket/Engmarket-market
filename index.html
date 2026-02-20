@@ -3,48 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eng Market | المنصة الهندسية الكبرى</title>
+    <title>Eng Market | Global Master</title>
     <style>
+        /* 1. التنسيق الأساسي (الألوان والخطوط) */
         :root { --primary: #0d1b2a; --brand: #c5a059; --bg: #f4f7f9; --white: #ffffff; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--primary); }
-        
-        /* الهيدر */
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: var(--primary); }
+
+        /* 2. الهيدر وزر اللغة */
         header { background: var(--primary); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--brand); position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 1.6rem; font-weight: 900; color: var(--brand); text-decoration: none; }
         .lang-btn { background: var(--brand); color: var(--primary); border: none; padding: 8px 16px; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
-        /* السلايدر الخماسي */
-        .hero { width: 100%; height: 350px; position: relative; overflow: hidden; background: #000; }
+        /* 3. السلايدر الخماسي */
+        .hero { width: 100%; height: 320px; position: relative; overflow: hidden; background: #000; }
         .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1s; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; }
         .slide.active { opacity: 0.6; }
-        .slide h2 { color: var(--brand); font-size: 2rem; text-align: center; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); padding: 20px; }
+        .slide h2 { color: var(--brand); font-size: 1.8rem; text-align: center; text-shadow: 2px 2px 10px #000; padding: 20px; }
 
-        /* البحث والفلترة (أسلوب أولكس) */
-        .search-area { background: var(--white); padding: 25px 5%; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        #mainSearch { width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; outline: none; margin-bottom: 15px; }
-        .tabs { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px; scrollbar-width: none; }
+        /* 4. شريط الإعلانات المتحرك (نقطة مضافة) */
+        .ad-bar { background: var(--brand); color: var(--primary); padding: 8px 0; font-weight: bold; overflow: hidden; white-space: nowrap; }
+        .ad-track { display: inline-block; animation: scroll 20s linear infinite; }
+        @keyframes scroll { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+
+        /* 5. البحث والفلترة (أسلوب أولكس) */
+        .search-area { background: var(--white); padding: 20px 5%; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        #mainSearch { width: 100%; padding: 14px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; outline: none; }
+        .tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px 0; scrollbar-width: none; }
         .tab { padding: 8px 20px; background: #eee; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; white-space: nowrap; }
         .tab.active { background: var(--brand); color: white; }
 
-        /* الأيقونات الدائرية (نفس الصورة تماماً) */
-        .services-bar { background: var(--white); padding: 20px 0; border-bottom: 1px solid #ddd; }
-        .ribbon { display: flex; overflow-x: auto; gap: 20px; padding: 0 5%; scrollbar-width: none; }
+        /* 6. شريط الأيقونات الدائرية الـ 30 (التصميم الملكي) */
+        .ribbon { display: flex; overflow-x: auto; gap: 20px; padding: 20px 5%; background: var(--white); border-bottom: 1px solid #ddd; scrollbar-width: none; }
         .icon-item { flex: 0 0 auto; text-align: center; width: 85px; cursor: pointer; }
-        .icon-circle { width: 65px; height: 65px; background: var(--white); border: 2px solid var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 8px; box-shadow: 0 4px 10px rgba(197,160,89,0.2); transition: 0.3s; }
-        .icon-item:hover .icon-circle { transform: scale(1.1); background: var(--brand); }
-        .icon-item span { font-size: 0.8rem; font-weight: bold; }
+        .icon-circle { width: 65px; height: 65px; background: var(--white); border: 2.5px solid var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 8px; box-shadow: 0 4px 12px rgba(197,160,89,0.25); transition: 0.3s; }
+        .icon-item:hover .icon-circle { transform: scale(1.1); background: var(--brand); color: white; }
+        .icon-item span { font-size: 0.8rem; font-weight: bold; color: var(--primary); }
 
-        /* شبكة الشركات (أسلوب إنديامارت) */
+        /* 7. شبكة الشركات (أسلوب إنديامارت) */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 30px 5%; }
-        .card { background: var(--white); border-radius: 15px; padding: 20px; border: 1px solid #eee; position: relative; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .card { background: var(--white); border-radius: 15px; padding: 25px; border: 1px solid #eee; position: relative; transition: 0.3s; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .badge { position: absolute; top: 15px; left: 15px; background: #27ae60; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
+        .verified { position: absolute; top: 15px; left: 15px; background: #27ae60; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
+        .stars { color: #f1c40f; font-size: 0.8rem; margin-bottom: 5px; } /* نظام النجوم */
         .card-loc { color: var(--brand); font-weight: bold; font-size: 0.85rem; }
-        .card-title { font-size: 1.3rem; margin: 10px 0; }
+        .card-title { font-size: 1.4rem; margin: 10px 0; }
         .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
         .btn { padding: 12px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
         .btn-call { background: var(--primary); color: white; }
         .btn-wa { background: #25d366; color: white; }
+
+        /* 8. بوابات المهندسين والموردين */
+        .portals { padding: 0 5% 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .portal-card { background: var(--primary); color: white; padding: 25px; border-radius: 15px; text-align: center; cursor: pointer; }
+        .portal-card.alt { background: white; color: var(--primary); border: 2px solid var(--primary); }
 
         footer { background: var(--primary); color: white; text-align: center; padding: 40px; border-top: 5px solid var(--brand); }
     </style>
@@ -56,50 +67,74 @@
     <button class="lang-btn" onclick="toggleLang()" id="langBtn">English</button>
 </header>
 
-<div class="hero">
-    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?w=1000')"><h2>أكبر تجمع للموردين في لبنان</h2></div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1503387762-592dee58c460?w=1000')"><h2>تواصل مع شركات البناء مباشرة</h2></div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1000')"><h2>أنظمة طاقة شمسية متكاملة</h2></div>
+<div class="hero" id="slider">
+    </div>
+
+<div class="ad-bar">
+    <div class="ad-track">📢 إعلان: شركة 'ميتالكو' تقدم خصومات خاصة للمهندسين المسجلين عبر منصتنا - تواصل معنا للإعلان هنا 📢</div>
 </div>
 
 <div class="search-area">
-    <input type="text" id="mainSearch" onkeyup="doSearch()" placeholder="ابحث عن شركة أو خدمة...">
+    <input type="text" id="mainSearch" onkeyup="doSearch()" placeholder="ابحث عن شركة، خدمة، أو اختصاص...">
     <div class="tabs">
         <button class="tab active" onclick="filterLoc('الكل', this)">كل لبنان</button>
         <button class="tab" onclick="filterLoc('بيروت', this)">بيروت</button>
         <button class="tab" onclick="filterLoc('الشمال', this)">الشمال</button>
         <button class="tab" onclick="filterLoc('الجنوب', this)">الجنوب</button>
+        <button class="tab" onclick="filterLoc('البقاع', this)">البقاع</button>
     </div>
 </div>
 
-<div class="services-bar">
-    <div class="ribbon" id="categoryRibbon"></div>
-</div>
+<div class="ribbon" id="categoryRibbon"></div>
 
 <div class="grid" id="companyGrid"></div>
 
+<div class="portals">
+    <div class="portal-card" onclick="window.open('https://wa.me/96170822806')">
+        <h3>بوابة المهندسين</h3>
+        <small>سجل مجاناً</small>
+    </div>
+    <div class="portal-card alt" onclick="window.open('https://wa.me/96170822806')">
+        <h3>بوابة الموردين</h3>
+        <small>أضف شركتك</small>
+    </div>
+</div>
+
 <footer>
-    <p>ENG MARKET LEBANON © 2026 | جميع الحقوق محفوظة</p>
+    <p>ENG MARKET LEBANON © 2026</p>
     <img src="https://www.cutercounter.com/hits.php?id=gvxpoxn&nd=6&style=1" alt="hits">
 </footer>
 
 <script>
-    let currentLang = 'ar';
+    // --- البيانات الأساسية (هنا نضيف الشركات مستقبلاً) ---
     const companies = [
-        { n: "ميتالكو ستيل", c: "حديد", l: "بيروت", p: "96103761784", d: "توريد حديد البناء بأفضل الأسعار.", v: true },
-        { n: "صقر الشمال", c: "خشب", l: "الشمال", p: "96103000000", d: "تجارة كافة أنواع الأخشاب.", v: true },
-        { n: "كهرباء الجنوب", c: "كهرباء", l: "الجنوب", p: "96107000000", d: "تمديدات ومواد كهربائية.", v: true },
-        { n: "تكنو طاقة", c: "طاقة", l: "الجبل", p: "96101000000", d: "حلول الطاقة المتجددة.", v: true }
+        { n: "ميتالكو ستيل", c: "حديد", l: "بيروت", p: "96103761784", d: "حديد بناء مبروم قياسات عالمية.", v: true, r: 5 },
+        { n: "صقر الشمال", c: "خشب", l: "الشمال", p: "96103000000", d: "أخشاب سويدية وزان طبيعي.", v: true, r: 4 },
+        { n: "تكنو طاقة", c: "طاقة", l: "الجنوب", p: "96107000000", d: "أنظمة طاقة شمسية ذكية.", v: true, r: 5 }
     ];
 
     const cats = [
         {n:"حديد", i:"🏗️"}, {n:"باطون", i:"🚚"}, {n:"خشب", i:"🪵"}, {n:"رخام", i:"🏛️"}, 
         {n:"ألمنيوم", i:"🪟"}, {n:"مصاعد", i:"🛗"}, {n:"طاقة", i:"☀️"}, {n:"دهان", i:"🎨"},
-        {n:"صحي", i:"🚿"}, {n:"كهرباء", i:"💡"}, {n:"ديكور", i:"🛋️"}, {n:"تكييف", i:"❄️"}
+        {n:"صحي", i:"🚿"}, {n:"كهرباء", i:"💡"}, {n:"ديكور", i:"🛋️"}, {n:"تكييف", i:"❄️"},
+        {n:"عزل", i:"🛡️"}, {n:"زجاج", i:"💎"}, {n:"بلاط", i:"🧱"}
     ];
 
+    const slides = [
+        { t: "أكبر تجمع للموردين في لبنان", img: "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?w=800" },
+        { t: "أسعار مواد البناء لحظة بلحظة", img: "https://images.unsplash.com/photo-1503387762-592dee58c460?w=800" },
+        { t: "خدمات هندسية متكاملة", img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800" }
+    ];
+
+    // --- وظائف التشغيل ---
     function init() {
-        // بناء شريط التصنيفات
+        // بناء السلايدر
+        const s = document.getElementById('slider');
+        s.innerHTML = slides.map((sl, i) => `
+            <div class="slide ${i===0?'active':''}" style="background-image:url('${sl.img}')"><h2>${sl.t}</h2></div>
+        `).join('');
+
+        // بناء شريط الأيقونات
         const rb = document.getElementById('categoryRibbon');
         rb.innerHTML = cats.map(c => `
             <div class="icon-item" onclick="filterCat('${c.n}')">
@@ -108,13 +143,15 @@
             </div>`).join('');
         
         render(companies);
+        startSlider();
     }
 
     function render(data) {
         const grid = document.getElementById('companyGrid');
         grid.innerHTML = data.map(c => `
             <div class="card">
-                ${c.v ? '<span class="badge">موثق ✓</span>' : ''}
+                ${c.v ? '<span class="verified">موثق ✓</span>' : ''}
+                <div class="stars">${'★'.repeat(c.r)}${'☆'.repeat(5-c.r)}</div>
                 <div class="card-loc">📍 ${c.l} | ${c.c}</div>
                 <h3 class="card-title">${c.n}</h3>
                 <p style="font-size:0.85rem; color:#666;">${c.d}</p>
@@ -125,37 +162,36 @@
             </div>`).join('');
     }
 
+    function startSlider() {
+        setInterval(() => {
+            const s = document.querySelectorAll('.slide');
+            let a = document.querySelector('.slide.active');
+            a.classList.remove('active');
+            (a.nextElementSibling || s[0]).classList.add('active');
+        }, 4000);
+    }
+
+    // --- وظائف البحث والفلترة ---
     function filterLoc(loc, btn) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         btn.classList.add('active');
         render(loc === 'الكل' ? companies : companies.filter(c => c.l === loc));
     }
 
-    function filterCat(cat) {
-        render(companies.filter(c => c.c === cat));
-    }
+    function filterCat(cat) { render(companies.filter(c => c.c === cat)); }
 
     function doSearch() {
         const val = document.getElementById('mainSearch').value.toLowerCase();
-        render(companies.filter(c => c.n.includes(val) || c.c.includes(val)));
+        render(companies.filter(c => c.n.toLowerCase().includes(val) || c.c.includes(val)));
     }
 
     function toggleLang() {
-        currentLang = currentLang === 'ar' ? 'en' : 'ar';
-        document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-        document.getElementById('langBtn').innerText = currentLang === 'ar' ? 'English' : 'العربية';
-        // يمكنك إضافة ترجمة النصوص هنا لاحقاً
+        document.documentElement.dir = document.documentElement.dir === 'rtl' ? 'ltr' : 'rtl';
+        document.getElementById('langBtn').innerText = document.documentElement.dir === 'rtl' ? 'English' : 'العربية';
     }
-
-    // حركة السلايدر
-    setInterval(() => {
-        const slides = document.querySelectorAll('.slide');
-        let active = document.querySelector('.slide.active');
-        active.classList.remove('active');
-        (active.nextElementSibling || slides[0]).classList.add('active');
-    }, 4000);
 
     window.onload = init;
 </script>
 </body>
 </html>
+ 
