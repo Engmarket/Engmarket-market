@@ -625,6 +625,79 @@
         lastScroll = currentScroll;
     });
 </script>
+.app-bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #000000; /* اللون الأسود الذي طلبته */
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px 0;
+        border-top: 2px solid var(--brand); /* لمسة ذهبية في الأعلى */
+        z-index: 2500;
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        height: 65px;
+    }
+
+    .nav-btn {
+        background: none;
+        border: none;
+        color: #ffffff; /* نصوص وأيقونات بيضاء على خلفية سوداء */
+        text-align: center;
+        flex: 1;
+        cursor: pointer;
+        transition: 0.3s;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* تأثير عند الضغط أو التمرير */
+    .nav-btn:active, .nav-btn:hover {
+        color: var(--brand); /* يتحول للذهبي عند الضغط */
+    }
+
+    .nav-icon {
+        font-size: 1.4rem;
+        margin-bottom: 4px;
+    }
+
+    .nav-text {
+        font-size: 0.7rem;
+        font-weight: bold;
+    }
+
+    /* إضافة مساحة أسفل الصفحة حتى لا يغطي الشريط آخر المحتوى */
+    body {
+        padding-bottom: 80px !important;
+    }
+</style>
+
+<div class="app-bottom-nav">
+    <a href="#" class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-text">الرئيسية</span>
+    </a>
+
+    <a href="#tendersSection" class="nav-btn">
+        <span class="nav-icon">🏗️</span>
+        <span class="nav-text">السوق</span>
+    </a>
+
+    <a href="#adPortal" class="nav-btn">
+        <span class="nav-icon">📝</span>
+        <span class="nav-text">طلباتي</span>
+    </a>
+
+    <a href="https://wa.me/96170822806" class="nav-btn">
+        <span class="nav-icon">👤</span>
+        <span class="nav-text">حسابي</span>
+    </a>
+</div>
 
 </body>
 </html>
