@@ -625,152 +625,76 @@
         lastScroll = currentScroll;
     });
 </script>
-.app-bottom-nav {
+ <style>
+    /* 1. تنسيق الشريط الأسود الثابت في الأسفل */
+    .fixed-footer-bar {
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
-        background: #000000; /* اللون الأسود الذي طلبته */
+        background-color: #000000 !important; /* أسود ملكي */
+        height: 70px;
         display: flex;
         justify-content: space-around;
         align-items: center;
-        padding: 10px 0;
-        border-top: 2px solid var(--brand); /* لمسة ذهبية في الأعلى */
-        z-index: 2500;
-        box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
-        height: 65px;
+        border-top: 2px solid #c5a059; /* خط ذهبي رفيع */
+        box-shadow: 0 -5px 15px rgba(0,0,0,0.4);
+        z-index: 10000; /* يضمن الظهور فوق كل شيء */
     }
 
-    .nav-btn {
-        background: none;
-        border: none;
-        color: #ffffff; /* نصوص وأيقونات بيضاء على خلفية سوداء */
-        text-align: center;
-        flex: 1;
-        cursor: pointer;
-        transition: 0.3s;
-        text-decoration: none;
+    /* 2. تنسيق الأزرار داخل الشريط */
+    .footer-nav-item {
+        color: #ffffff !important;
+        text-decoration: none !important;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        flex: 1;
+        transition: 0.3s ease;
     }
 
-    /* تأثير عند الضغط أو التمرير */
-    .nav-btn:active, .nav-btn:hover {
-        color: var(--brand); /* يتحول للذهبي عند الضغط */
+    /* تأثير عند تمرير الفأرة أو الضغط */
+    .footer-nav-item:hover {
+        color: #c5a059 !important; /* يتحول للذهبي */
     }
 
-    .nav-icon {
-        font-size: 1.4rem;
+    /* حجم الأيقونات */
+    .footer-nav-item span.icon {
+        font-size: 22px;
         margin-bottom: 4px;
     }
 
-    .nav-text {
-        font-size: 0.7rem;
+    /* حجم النص تحت الأيقونة */
+    .footer-nav-item span.label {
+        font-size: 11px;
         font-weight: bold;
     }
 
-    /* إضافة مساحة أسفل الصفحة حتى لا يغطي الشريط آخر المحتوى */
+    /* 3. تفريغ مساحة أسفل الموقع حتى لا يغطي الشريط المحتوى */
     body {
         padding-bottom: 80px !important;
     }
 </style>
 
-<div class="app-bottom-nav">
-    <a href="#" class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        <span class="nav-icon">🏠</span>
-        <span class="nav-text">الرئيسية</span>
+<div class="fixed-footer-bar">
+    <a href="#" class="footer-nav-item">
+        <span class="icon">🏠</span>
+        <span class="label">الرئيسية</span>
     </a>
 
-    <a href="#tendersSection" class="nav-btn">
-        <span class="nav-icon">🏗️</span>
-        <span class="nav-text">السوق</span>
+    <a href="https://wa.me/96170822806" class="footer-nav-item">
+        <span class="icon">👤</span>
+        <span class="label">حسابي</span>
     </a>
 
-    <a href="#adPortal" class="nav-btn">
-        <span class="nav-icon">📝</span>
-        <span class="nav-text">طلباتي</span>
+    <a href="#adPortal" class="footer-nav-item">
+        <span class="icon">📝</span>
+        <span class="label">طلباتي</span>
     </a>
 
-    <a href="https://wa.me/96170822806" class="nav-btn">
-        <span class="nav-icon">👤</span>
-        <span class="nav-text">حسابي</span>
-    </a>
-</div>
-.app-bottom-nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: #000000; /* اللون الأسود الذي طلبته */
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        padding: 10px 0;
-        border-top: 2px solid var(--brand); /* لمسة ذهبية في الأعلى */
-        z-index: 2500;
-        box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
-        height: 65px;
-    }
-
-    .nav-btn {
-        background: none;
-        border: none;
-        color: #ffffff; /* نصوص وأيقونات بيضاء على خلفية سوداء */
-        text-align: center;
-        flex: 1;
-        cursor: pointer;
-        transition: 0.3s;
-        text-decoration: none;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    /* تأثير عند الضغط أو التمرير */
-    .nav-btn:active, .nav-btn:hover {
-        color: var(--brand); /* يتحول للذهبي عند الضغط */
-    }
-
-    .nav-icon {
-        font-size: 1.4rem;
-        margin-bottom: 4px;
-    }
-
-    .nav-text {
-        font-size: 0.7rem;
-        font-weight: bold;
-    }
-
-    /* إضافة مساحة أسفل الصفحة حتى لا يغطي الشريط آخر المحتوى */
-    body {
-        padding-bottom: 80px !important;
-    }
-</style>
-
-<div class="app-bottom-nav">
-    <a href="#" class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        <span class="nav-icon">🏠</span>
-        <span class="nav-text">الرئيسية</span>
-    </a>
-
-    <a href="#tendersSection" class="nav-btn">
-        <span class="nav-icon">🏗️</span>
-        <span class="nav-text">السوق</span>
-    </a>
-
-    <a href="#adPortal" class="nav-btn">
-        <span class="nav-icon">📝</span>
-        <span class="nav-text">طلباتي</span>
-    </a>
-
-    <a href="https://wa.me/96170822806" class="nav-btn">
-        <span class="nav-icon">👤</span>
-        <span class="nav-text">حسابي</span>
-    </a>
-</div>
+    <a href="#tendersList" class="footer-nav-item">
+        <span class="icon">🌟</span>
 
 </body>
 </html>
