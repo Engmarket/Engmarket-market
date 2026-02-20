@@ -2,98 +2,141 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Eng Market | Master</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Eng Market | المنصة الهندسية المتكاملة</title>
+    
     <style>
-        :root { --p: #0d1b2a; --b: #c5a059; --w: #fff; }
-        body { font-family: sans-serif; margin: 0; background: #f4f7f9; }
-        header { background: var(--p); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--b); color: var(--b); }
-        .lang-btn { border: 1px solid var(--b); color: var(--b); background: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
-        .hero { width: 100%; height: 200px; background: #000; position: relative; overflow: hidden; }
-        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1s; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: var(--b); font-weight: bold; font-size: 1.2rem; text-align: center; }
-        .slide.active { opacity: 0.6; }
-        .search-box { padding: 20px; background: var(--w); }
-        #sInput { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .ribbon { display: flex; overflow-x: auto; gap: 15px; padding: 15px; background: var(--w); }
-        .icon-item { text-align: center; min-width: 60px; }
-        .circle { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--b); display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; font-size: 1.5rem; background: var(--w); }
-        .grid { display: grid; grid-template-columns: 1fr; gap: 15px; padding: 15px; }
-        .card { background: var(--w); padding: 15px; border-radius: 10px; border: 1px solid #eee; position: relative; }
-        .v { position: absolute; top: 10px; left: 10px; color: green; font-size: 0.7rem; font-weight: bold; }
-        .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .btn { padding: 10px; text-align: center; border-radius: 5px; text-decoration: none; font-weight: bold; color: var(--w); font-size: 0.8rem; }
+        :root { 
+            --dark-blue: #0d1b2a; 
+            --gold: #c5a059; 
+            --white: #ffffff; 
+            --bg: #f0f2f5;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: var(--dark-blue); }
+
+        /* الهيدر العلوي */
+        header { 
+            background: var(--dark-blue); 
+            padding: 15px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 3px solid var(--gold);
+        }
+        .logo { font-size: 1.6rem; font-weight: 900; color: var(--gold); text-decoration: none; }
+        .lang-btn { 
+            background: var(--gold); color: var(--dark-blue); 
+            border: none; padding: 8px 15px; border-radius: 5px; 
+            font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+
+        /* السلايدر الاحترافي */
+        .hero { width: 100%; height: 350px; position: relative; overflow: hidden; background: #000; }
+        .slide { 
+            position: absolute; width: 100%; height: 100%; opacity: 0; 
+            transition: 1.5s ease-in-out; background-size: cover; background-position: center; 
+            display: flex; align-items: flex-end;
+        }
+        .slide.active { opacity: 0.7; }
+        .slide-overlay { 
+            width: 100%; padding: 40px; 
+            background: linear-gradient(transparent, rgba(0,0,0,0.8)); 
+            color: var(--gold);
+        }
+
+        /* شريط البحث (أسلوب أولكس) */
+        .search-section { background: var(--white); padding: 25px 5%; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        #mainSearch { 
+            width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; 
+            font-size: 1.1rem; outline: none; transition: 0.3s;
+        }
+        #mainSearch:focus { border-color: var(--gold); }
+
+        /* شريط المناطق */
+        .tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px 0; scrollbar-width: none; }
+        .tab { 
+            padding: 10px 20px; background: #eee; border: none; border-radius: 25px; 
+            font-weight: bold; white-space: nowrap; cursor: pointer;
+        }
+        .tab.active { background: var(--gold); color: white; }
+
+        /* شريط الأيقونات الدائرية (نفس الصورة تماماً) */
+        .services-ribbon { background: var(--white); padding: 30px 0; border-bottom: 1px solid #ddd; }
+        .ribbon-container { display: flex; overflow-x: auto; gap: 25px; padding: 0 5%; scrollbar-width: none; }
+        .service-item { flex: 0 0 auto; text-align: center; width: 90px; cursor: pointer; }
+        .icon-circle { 
+            width: 70px; height: 70px; background: var(--white); 
+            border: 3px solid var(--gold); border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 2rem; margin: 0 auto 10px; 
+            box-shadow: 0 6px 15px rgba(197, 160, 89, 0.3); transition: 0.3s;
+        }
+        .service-item:hover .icon-circle { transform: scale(1.1); background: var(--gold); color: white; }
+        .service-item span { font-size: 0.85rem; font-weight: bold; color: var(--dark-blue); }
+
+        /* شبكة الشركات (أسلوب إنديامارت) */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 25px; padding: 40px 5%; 
+        }
+        .card { 
+            background: var(--white); border-radius: 15px; padding: 25px; 
+            border: 1px solid #eee; position: relative; transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .verified { 
+            position: absolute; top: 15px; left: 15px; 
+            background: #27ae60; color: white; padding: 4px 12px; 
+            border-radius: 20px; font-size: 0.75rem; font-weight: bold;
+        }
+        .card-loc { color: var(--gold); font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; }
+        .card-title { font-size: 1.4rem; margin: 10px 0; }
+        .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
+        .btn { 
+            padding: 12px; border-radius: 8px; text-align: center; 
+            text-decoration: none; font-weight: bold; font-size: 0.9rem;
+        }
+        .btn-call { background: var(--dark-blue); color: white; }
+        .btn-wa { background: #25d366; color: white; }
+
+        footer { 
+            background: var(--dark-blue); color: white; 
+            text-align: center; padding: 50px; 
+            border-top: 5px solid var(--gold); 
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <div style="font-weight:900;">ENG MARKET</div>
-    <button class="lang-btn" onclick="tg()" id="lb">English</button>
+    <a href="#" class="logo" id="logo">ENG MARKET</a>
+    <button class="lang-btn" onclick="toggleLang()" id="langBtn">English</button>
 </header>
 
 <div class="hero">
-    <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?w=400')"><h2>دليلك الهندسي</h2></div>
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1503387762-592dee58c460?w=400')"><h2>أفضل الموردين</h2></div>
+    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?w=1200')">
+        <div class="slide-overlay"><h2 id="s1">دليلك الهندسي الشامل في لبنان</h2></div>
+    </div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1503387762-592dee58c460?w=1200')">
+        <div class="slide-overlay"><h2 id="s2">تواصل مع أفضل موردي البناء</h2></div>
+    </div>
 </div>
 
-<div class="search-box">
-    <input type="text" id="sInput" onkeyup="srch()" placeholder="ابحث هنا...">
+<div class="search-section">
+    <input type="text" id="mainSearch" onkeyup="search()" placeholder="ابحث عن شركة، خدمة، أو اختصاص...">
+    <div class="tabs">
+        <button class="tab active" onclick="filterLoc('الكل', this)" data-key="all">كل لبنان</button>
+        <button class="tab" onclick="filterLoc('بيروت', this)" data-key="beirut">بيروت</button>
+        <button class="tab" onclick="filterLoc('الشمال', this)" data-key="north">الشمال</button>
+        <button class="tab" onclick="filterLoc('الجنوب', this)" data-key="south">الجنوب</button>
+        <button class="tab" onclick="filterLoc('البقاع', this)" data-key="beqaa">البقاع</button>
+        <button class="tab" onclick="filterLoc('الجبل', this)" data-key="mount">الجبل</button>
+    </div>
 </div>
 
-<div class="ribbon" id="rb"></div>
-<div class="grid" id="gr"></div>
+<div class="services
 
-<script>
-    let L = 'ar';
-    const ui = {
-        ar: { s: "ابحث هنا...", c: "اتصال", w: "واتساب", b: "English" },
-        en: { s: "Search here...", c: "Call", w: "WhatsApp", b: "العربية" }
-    };
-    const cats = [
-        {n:"حديد", e:"Steel", i:"🏗️"}, {n:"باطون", e:"Concrete", i:"🚚"}, {n:"طاقة", e:"Solar", i:"☀️"}, {n:"كهرباء", e:"Electric", i:"💡"}
-    ];
-    const comps = [
-        {n: "ميتالكو ستيل", c: "حديد", p: "96103761784", d: "توريد حديد البناء", v: true},
-        {n: "صقر الشمال", c: "خشب", p: "96103000000", d: "تجارة الأخشاب", v: true}
-    ];
-
-    function tg() {
-        L = L === 'ar' ? 'en' : 'ar';
-        document.documentElement.dir = L === 'ar' ? 'rtl' : 'ltr';
-        document.getElementById('lb').innerText = ui[L].b;
-        document.getElementById('sInput').placeholder = ui[L].s;
-        init();
-    }
-
-    function init() {
-        const r = document.getElementById('rb'); r.innerHTML = '';
-        cats.forEach(c => {
-            r.innerHTML += `<div class="icon-item" onclick="flt('${c.n}')"><div class="circle">${c.i}</div><span style="font-size:0.6rem;font-weight:bold">${L==='ar'?c.n:c.e}</span></div>`;
-        });
-        rndr(comps);
-    }
-
-    function rndr(d) {
-        const g = document.getElementById('gr'); g.innerHTML = '';
-        d.forEach(c => {
-            g.innerHTML += `<div class="card">${c.v?'<span class="v">✓ موثق</span>':''}<div style="color:var(--b);font-size:0.7rem">📍 ${c.c}</div><h3 style="margin:5px 0">${c.n}</h3><p style="font-size:0.7rem;color:#666">${c.d}</p><div class="btns"><a href="tel:${c.p}" class="btn" style="background:var(--p)">${ui[L].c}</a><a href="https://wa.me/${c.p}" class="btn" style="background:#25d366">${ui[L].w}</a></div></div>`;
-        });
-    }
-
-    function srch() {
-        const v = document.getElementById('sInput').value.toLowerCase();
-        rndr(comps.filter(c => c.n.toLowerCase().includes(v)));
-    }
-    
-    function flt(cat) { rndr(comps.filter(c => c.c === cat)); }
-
-    setInterval(() => {
-        let s = document.querySelectorAll('.slide'), a = document.querySelector('.slide.active');
-        a.classList.remove('active');
-        (a.nextElementSibling || s[0]).classList.add('active');
-    }, 3000);
-
-    window.onload = init;
-</script>
-</body>
-</html>
