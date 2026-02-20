@@ -1,182 +1,187 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eng Market | المنصة الهندسية الكبرى</title>
     <style>
-        :root { --primary: #0d1b2a; --brand: #c5a059; --accent: #1b263b; --white: #ffffff; --bg: #f4f7f9; }
-        
-        /* تحسين السرعة: استخدام فونت النظام وتقليل الصور الثقيلة */
-        body { font-family: system-ui, -apple-system, sans-serif; margin: 0; background: var(--bg); color: var(--primary); transition: 0.3s; }
+        :root { --primary: #0d1b2a; --brand: #c5a059; --accent: #3a77ff; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: var(--primary); overflow-x: hidden; }
 
-        /* الهيدر الملكي */
-        header { background: var(--primary); padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 2000; border-bottom: 3px solid var(--brand); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .logo { font-size: 1.5rem; font-weight: 900; color: var(--brand); text-decoration: none; letter-spacing: 1px; }
-        .lang-btn { background: transparent; border: 1.5px solid var(--brand); color: var(--brand); padding: 6px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
+        /* Header & Lang */
+        header { background: var(--primary); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid var(--brand); }
+        .logo { font-size: 1.6rem; font-weight: 900; color: var(--brand); text-decoration: none; }
+        .lang-btn { background: transparent; border: 1px solid var(--brand); color: var(--brand); padding: 7px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
 
-        /* سلايدر الصور الـ 5 (تحسين الاستجابة للهاتف) */
-        .hero { width: 100%; height: 320px; position: relative; overflow: hidden; background: #000; }
-        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1s ease-in-out; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .slide.active { opacity: 0.6; }
-        .slide-content h2 { color: var(--brand); font-size: 1.8rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); padding: 0 20px; }
+        /* Slider - 5 Images */
+        .slider-box { width: 100%; height: 350px; position: relative; overflow: hidden; background: #000; }
+        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1.5s; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; }
+        .slide.active { opacity: 0.7; }
+        .slide-content { text-align: center; color: white; z-index: 10; padding: 20px; }
+        .slide-content h2 { font-size: 2.2rem; color: var(--brand); margin: 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
 
-        /* شريط الإعلانات الذهبي */
-        .ad-marquee { background: var(--brand); color: var(--primary); padding: 8px 0; font-weight: bold; overflow: hidden; white-space: nowrap; font-size: 0.85rem; }
-        .mq-text { display: inline-block; animation: scroll 20s linear infinite; }
+        /* Marquee Ads */
+        .ads-bar { background: var(--brand); color: var(--primary); padding: 10px 0; font-weight: bold; overflow: hidden; white-space: nowrap; border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .marquee { display: inline-block; animation: scroll 25s linear infinite; }
         @keyframes scroll { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
 
-        /* محرك البحث والفلترة السريعة */
-        .search-container { background: var(--white); padding: 20px 5%; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        #searchBar { width: 100%; padding: 14px; border: 2px solid #eee; border-radius: 10px; font-size: 1rem; outline: none; margin-bottom: 15px; box-sizing: border-box; }
-        .tabs { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 5px; scrollbar-width: none; }
-        .tabs::-webkit-scrollbar { display: none; }
-        .tab-btn { padding: 8px 18px; background: #e9ecef; border: none; border-radius: 20px; font-weight: bold; white-space: nowrap; cursor: pointer; color: var(--primary); }
-        .tab-btn.active { background: var(--brand); color: var(--white); }
+        /* Search & Tabs */
+        .search-area { background: white; padding: 25px 5%; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        #mainSearch { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px; font-size: 1rem; outline: none; margin-bottom: 20px; transition: 0.3s; }
+        #mainSearch:focus { border-color: var(--brand); }
+        .tabs { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; scrollbar-width: none; }
+        .tab { padding: 10px 22px; background: #eee; border-radius: 30px; border: none; cursor: pointer; font-weight: bold; white-space: nowrap; transition: 0.3s; }
+        .tab.active { background: var(--brand); color: white; }
 
-        /* شريط الأيقونات الدائرية (الـ 30 اختصاص) */
-        .services-ribbon { background: var(--white); padding: 20px 0; border-bottom: 1px solid #eee; }
-        .ribbon-wrapper { display: flex; overflow-x: auto; gap: 20px; padding: 0 5%; scrollbar-width: none; }
-        .service-item { flex: 0 0 auto; text-align: center; width: 75px; cursor: pointer; }
-        .icon-box { width: 60px; height: 60px; background: var(--white); border: 2.5px solid var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 8px; box-shadow: 0 4px 12px rgba(197, 160, 89, 0.25); transition: 0.3s; }
-        .service-item:active .icon-box { transform: scale(0.9); background: var(--brand); }
-        .service-item span { font-size: 0.75rem; font-weight: bold; color: var(--primary); }
+        /* Icons Ribbon - 30 Services */
+        .services-bar { background: white; padding: 25px 0; border-bottom: 1px solid #eee; }
+        .icons-container { display: flex; overflow-x: auto; gap: 25px; padding: 0 5%; scrollbar-width: none; }
+        .icons-container::-webkit-scrollbar { display: none; }
+        .icon-item { flex: 0 0 auto; text-align: center; width: 85px; cursor: pointer; }
+        .icon-circle { width: 65px; height: 65px; background: white; border: 2px solid var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 10px; box-shadow: 0 5px 15px rgba(197, 160, 89, 0.2); transition: 0.3s; }
+        .icon-item:hover .icon-circle { transform: translateY(-5px); background: var(--brand); color: white; }
+        .icon-item span { font-size: 0.8rem; font-weight: bold; color: var(--primary); }
 
-        /* شبكة الشركات وبطاقات العرض */
-        .main-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 30px 5%; }
-        .comp-card { background: var(--white); border-radius: 15px; padding: 20px; border: 1px solid #eee; position: relative; transition: 0.3s; }
-        .comp-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-        .verified { position: absolute; top: 15px; left: 15px; background: #27ae60; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: bold; }
-        .comp-loc { color: var(--brand); font-weight: bold; font-size: 0.8rem; }
-        .comp-name { font-size: 1.3rem; margin: 8px 0; }
-        .comp-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .btn-act { padding: 12px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: bold; font-size: 0.85rem; }
-        .btn-call { background: var(--primary); color: var(--white); }
-        .btn-wa { background: #25d366; color: var(--white); }
+        /* Company Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; padding: 40px 5%; }
+        .card { background: white; border-radius: 15px; padding: 20px; border: 1px solid #eee; position: relative; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+        .v-badge { position: absolute; top: 15px; left: 15px; background: #27ae60; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
+        .card-loc { color: var(--brand); font-weight: bold; font-size: 0.85rem; }
+        .card-title { font-size: 1.4rem; margin: 10px 0; color: var(--primary); }
+        .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
+        .btn { padding: 12px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        .btn-call { background: var(--primary); color: white; }
+        .btn-wa { background: #25d366; color: white; }
 
-        /* بوابات التسجيل للمهندسين والموردين */
-        .gates-area { padding: 0 5% 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .gate-card { background: var(--primary); color: var(--white); padding: 25px; border-radius: 12px; text-align: center; }
-        .gate-card.alt { background: var(--white); color: var(--primary); border: 2px solid var(--primary); }
+        /* Gates */
+        .gates { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 5% 50px; }
+        .gate-box { background: var(--primary); color: white; padding: 30px; border-radius: 15px; text-align: center; }
+        .gate-box.white { background: white; color: var(--primary); border: 2px solid var(--primary); }
 
-        footer { background: var(--primary); color: var(--white); text-align: center; padding: 40px; border-top: 5px solid var(--brand); }
+        footer { background: var(--primary); color: white; text-align: center; padding: 50px; border-top: 5px solid var(--brand); }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="#" class="logo" id="siteLogo">ENG MARKET</a>
-    <button class="lang-btn" onclick="toggleLang()" id="langBtn">English</button>
+    <a href="#" class="logo" id="logoText">ENG MARKET</a>
+    <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">English</button>
 </header>
 
-<div class="hero" id="heroSlider">
-    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=800')">
-        <div class="slide-content"><h2 id="s1">دليلك الهندسي الشامل في لبنان</h2></div>
+<div class="slider-box" id="slider">
+    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=1200')">
+        <div class="slide-content"><h2 id="s1">أكبر تجمع للموردين في لبنان</h2></div>
     </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1503387762-592dee58c460?q=80&w=800')">
-        <div class="slide-content"><h2 id="s2">أسعار الحديد والباطون لحظة بلحظة</h2></div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1503387762-592dee58c460?q=80&w=1200')">
+        <div class="slide-content"><h2 id="s2">تواصل مباشر مع شركات البناء</h2></div>
     </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=800')">
-        <div class="slide-content"><h2 id="s3">أفضل موردي الطاقة الشمسية</h2></div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1200')">
+        <div class="slide-content"><h2 id="s3">أنظمة طاقة متطورة</h2></div>
     </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?q=80&w=800')">
-        <div class="slide-content"><h2 id="s4">خدمات الديكور والمقاولات العامة</h2></div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?q=80&w=1200')">
+        <div class="slide-content"><h2 id="s4">عروض الحديد اليومية</h2></div>
     </div>
-    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800')">
-        <div class="slide-content"><h2 id="s5">تجهيز المكاتب والمشاريع الكبرى</h2></div>
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200')">
+        <div class="slide-content"><h2 id="s5">تجهيزات هندسية متكاملة</h2></div>
     </div>
 </div>
 
-<div class="ad-marquee">
-    <div class="mq-text" id="marqueeText">📢 إعلان: شركة 'ميتالكو' تقدم خصومات خاصة للمهندسين المسجلين - تواصل معنا لتفعيل إعلانك هنا 📢</div>
+<div class="ads-bar">
+    <div class="marquee" id="adText">📢 إعلان: خصم 15% لمشتركي المنصة لدى شركة ميتالكو هذا الشهر - سجل شركتك الآن للظهور هنا 📢</div>
 </div>
 
-<div class="search-container">
-    <input type="text" id="searchBar" onkeyup="filterData()" placeholder="ابحث عن شركة، خدمة، أو اختصاص...">
+<div class="search-area">
+    <input type="text" id="mainSearch" onkeyup="smartSearch()" placeholder="ابحث عن شركة، خدمة، أو اختصاص...">
     <div class="tabs">
-        <button class="tab-btn active" onclick="filterLoc('الكل', this)" data-key="all">كل لبنان</button>
-        <button class="tab-btn" onclick="filterLoc('بيروت', this)" data-key="beirut">بيروت</button>
-        <button class="tab-btn" onclick="filterLoc('الشمال', this)" data-key="north">الشمال</button>
-        <button class="tab-btn" onclick="filterLoc('الجنوب', this)" data-key="south">الجنوب</button>
-        <button class="tab-btn" onclick="filterLoc('البقاع', this)" data-key="beqaa">البقاع</button>
-        <button class="tab-btn" onclick="filterLoc('الجبل', this)" data-key="mount">الجبل</button>
+        <button class="tab active" onclick="filterLoc('الكل', this)" data-key="all">كل لبنان</button>
+        <button class="tab" onclick="filterLoc('بيروت', this)" data-key="beirut">بيروت</button>
+        <button class="tab" onclick="filterLoc('الشمال', this)" data-key="north">الشمال</button>
+        <button class="tab" onclick="filterLoc('الجنوب', this)" data-key="south">الجنوب</button>
+        <button class="tab" onclick="filterLoc('البقاع', this)" data-key="beqaa">البقاع</button>
+        <button class="tab" onclick="filterLoc('الجبل', this)" data-key="mount">الجبل</button>
     </div>
 </div>
 
-<div class="services-ribbon">
-    <div class="ribbon-wrapper" id="catRibbon"></div>
+<div class="services-bar">
+    <div class="icons-container" id="catBar"></div>
 </div>
 
-<div class="main-grid" id="compGrid"></div>
+<div class="grid" id="compGrid"></div>
 
-<div class="gates-area">
-    <div class="gate-card" onclick="window.open('https://wa.me/96170822806')">
+<div class="gates">
+    <div class="gate-box" onclick="window.open('https://wa.me/96170822806')">
         <h4 id="g1">بوابة المهندسين</h4>
-        <small id="g1s">انضم لمجتمعنا مجاناً</small>
+        <small id="g1s">سجل الآن مجاناً</small>
     </div>
-    <div class="gate-card alt" onclick="window.open('https://wa.me/96170822806')">
+    <div class="gate-box white" onclick="window.open('https://wa.me/96170822806')">
         <h4 id="g2">بوابة الموردين</h4>
-        <small id="g2s">أضف شركتك الآن</small>
+        <small id="g2s">أضف شركتك للمنصة</small>
     </div>
 </div>
 
 <footer id="footerText">
-    ENG MARKET LEBANON © 2026 | المنصة الهندسية الأولى في لبنان
+    ENG MARKET LEBANON © 2026 | جميع الحقوق محفوظة
     <br><br>
     <img src="https://www.cutercounter.com/hits.php?id=gvxpoxn&nd=6&style=1" alt="hits">
 </footer>
 
 <script>
-    let lang = 'ar';
-    const ui = {
+    let currentLang = 'ar';
+    const i18n = {
         ar: {
-            search: "ابحث عن شركة، خدمة، أو اختصاص...", all: "كل لبنان", beirut: "بيروت", north: "الشمال", south: "الجنوب", beqaa: "البقاع", mount: "الجبل",
-            g1: "بوابة المهندسين", g1s: "انضم لمجتمعنا مجاناً", g2: "بوابة الموردين", g2s: "أضف شركتك الآن", call: "اتصال", wa: "واتساب",
-            footer: "ENG MARKET LEBANON © 2026 | المنصة الهندسية الأولى في لبنان", langBtn: "English"
+            logo: "ENG MARKET", langBtn: "English", search: "ابحث عن شركة، خدمة، أو اختصاص...",
+            all: "كل لبنان", beirut: "بيروت", north: "الشمال", south: "الجنوب", beqaa: "البقاع", mount: "الجبل",
+            g1: "بوابة المهندسين", g1s: "سجل الآن مجاناً", g2: "بوابة الموردين", g2s: "أضف شركتك للمنصة",
+            footer: "ENG MARKET LEBANON © 2026 | جميع الحقوق محفوظة", call: "اتصال", wa: "واتساب"
         },
         en: {
-            search: "Search for companies or services...", all: "All Lebanon", beirut: "Beirut", north: "North", south: "South", beqaa: "Beqaa", mount: "Mount",
-            g1: "Engineers Portal", g1s: "Join for free", g2: "Suppliers Portal", g2s: "Add your company", call: "Call", wa: "WhatsApp",
-            footer: "ENG MARKET LEBANON © 2026 | The #1 Engineering Hub", langBtn: "العربية"
+            logo: "ENG MARKET", langBtn: "العربية", search: "Search for companies or services...",
+            all: "All Lebanon", beirut: "Beirut", north: "North", south: "South", beqaa: "Beqaa", mount: "Mount",
+            g1: "Engineers Portal", g1s: "Join for free", g2: "Suppliers Portal", g2s: "Add your company",
+            footer: "ENG MARKET LEBANON © 2026 | All Rights Reserved", call: "Call", wa: "WhatsApp"
         }
     };
 
-    const cats = [
+    const categories = [
         {n:"حديد", en:"Steel", i:"🏗️"}, {n:"باطون", en:"Concrete", i:"🚚"}, {n:"خشب", en:"Wood", i:"🪵"}, {n:"رخام", en:"Marble", i:"🏛️"}, 
-        {n:"ألمنيوم", en:"Alum", i:"🪟"}, {n:"طاقة", en:"Solar", i:"☀️"}, {n:"دهان", en:"Paint", i:"🎨"}, {n:"صحي", en:"Plumb", i:"🚿"},
-        {n:"كهرباء", en:"Electric", i:"💡"}, {n:"ديكور", en:"Decor", i:"🛋️"}, {n:"تكييف", en:"AC", i:"❄️"}, {n:"مصاعد", en:"Lifts", i:"🛗"}
+        {n:"ألمنيوم", en:"Alum", i:"🪟"}, {n:"مصاعد", en:"Lifts", i:"🛗"}, {n:"طاقة", en:"Solar", i:"☀️"}, {n:"دهان", en:"Paint", i:"🎨"},
+        {n:"صحي", en:"Plumb", i:"🚿"}, {n:"كهرباء", en:"Electric", i:"💡"}, {n:"ديكور", en:"Decor", i:"🛋️"}, {n:"تكييف", en:"AC", i:"❄️"},
+        {n:"مكاتب", en:"Office", i:"📐"}, {n:"مقاولات", en:"Contract", i:"👷"}, {n:"مطابخ", en:"Kitchen", i:"🍳"}
     ];
 
     const companies = [
-        { n: "ميتالكو ستيل", c: "حديد", l: "بيروت", p: "96103761784", d: "تجارة وصناعة حديد البناء.", v: true },
-        { n: "صقر الشمال", c: "خشب", l: "الشمال", p: "96103000000", d: "توريد كافة أنواع الأخشاب.", v: true },
-        { n: "تكنو طاقة", c: "طاقة", l: "الجنوب", p: "96107000000", d: "حلول الطاقة الشمسية الذكية.", v: true }
+        { n: "ميتالكو ستيل", c: "حديد", l: "بيروت", p: "96103761784", d: "توريد حديد البناء بأفضل الأسعار.", v: true },
+        { n: "صقر الشمال", c: "خشب", l: "الشمال", p: "96103000000", d: "تجارة كافة أنواع الأخشاب الطبيعية.", v: true },
+        { n: "كهرباء الجنوب", c: "كهرباء", l: "الجنوب", p: "96107000000", d: "تمديدات صناعية ومواد كهربائية.", v: true }
     ];
 
-    function toggleLang() {
-        lang = lang === 'ar' ? 'en' : 'ar';
-        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-        document.getElementById('langBtn').innerText = ui[lang].langBtn;
-        document.getElementById('searchBar').placeholder = ui[lang].search;
-        document.getElementById('g1').innerText = ui[lang].g1;
-        document.getElementById('g2').innerText = ui[lang].g2;
-        document.getElementById('footerText').innerHTML = ui[lang].footer + '<br><br><img src="https://www.cutercounter.com/hits.php?id=gvxpoxn&nd=6&style=1">';
+    function toggleLanguage() {
+        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        const t = i18n[currentLang];
+        document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+        document.getElementById('logoText').innerText = t.logo;
+        document.getElementById('langBtn').innerText = t.langBtn;
+        document.getElementById('mainSearch').placeholder = t.search;
+        document.getElementById('g1').innerText = t.g1; document.getElementById('g1s').innerText = t.g1s;
+        document.getElementById('g2').innerText = t.g2; document.getElementById('g2s').innerText = t.g2s;
+        document.getElementById('footerText').innerHTML = t.footer + '<br><br><img src="https://www.cutercounter.com/hits.php?id=gvxpoxn&nd=6&style=1">';
         
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            const key = btn.getAttribute('data-key');
-            if(ui[lang][key]) btn.innerText = ui[lang][key];
+        document.querySelectorAll('.tab').forEach(tab => {
+            const key = tab.getAttribute('data-key');
+            if(t[key]) tab.innerText = t[key];
         });
         init();
     }
 
     function init() {
-        const ribbon = document.getElementById('catRibbon');
-        ribbon.innerHTML = '';
-        cats.forEach(c => {
-            ribbon.innerHTML += `
-                <div class="service-item" onclick="filterByCat('${c.n}')">
-                    <div class="icon-box">${c.i}</div>
-                    <span>${lang === 'ar' ? c.n : c.en}</span>
+        const bar = document.getElementById('catBar');
+        bar.innerHTML = '';
+        categories.forEach(c => {
+            bar.innerHTML += `
+                <div class="icon-item" onclick="filterCat('${c.n}')">
+                    <div class="icon-circle">${c.i}</div>
+                    <span>${currentLang === 'ar' ? c.n : c.en}</span>
                 </div>`;
         });
         render(companies);
@@ -187,34 +192,43 @@
         grid.innerHTML = '';
         data.forEach(c => {
             grid.innerHTML += `
-                <div class="comp-card">
-                    ${c.v ? '<span class="verified">موثق</span>' : ''}
-                    <div class="comp-loc">📍 ${c.l} | ${c.c}</div>
-                    <h3 class="comp-name">${c.n}</h3>
+                <div class="card">
+                    ${c.v ? '<span class="v-badge">موثق</span>' : ''}
+                    <div class="card-loc">📍 ${c.l} | ${c.c}</div>
+                    <h3 class="card-title">${c.n}</h3>
                     <p style="font-size:0.85rem; color:#666;">${c.d}</p>
-                    <div class="comp-actions">
-                        <a href="tel:${c.p}" class="btn-act btn-call">${ui[lang].call}</a>
-                        <a href="https://wa.me/${c.p}" class="btn-act btn-wa">${ui[lang].wa}</a>
+                    <div class="card-actions">
+                        <a href="tel:${c.p}" class="btn btn-call">${i18n[currentLang].call}</a>
+                        <a href="https://wa.me/${c.p}" class="btn btn-wa">${i18n[currentLang].wa}</a>
                     </div>
                 </div>`;
         });
     }
 
     function filterLoc(loc, btn) {
-        document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         btn.classList.add('active');
         render(loc === 'الكل' ? companies : companies.filter(c => c.l === loc));
     }
 
-    function filterByCat(cat) {
+    function filterCat(cat) {
         render(companies.filter(c => c.c === cat));
     }
 
-    function filterData() {
-        const val = document.getElementById('searchBar').value.toLowerCase();
+    function smartSearch() {
+        const val = document.getElementById('mainSearch').value.toLowerCase();
         render(companies.filter(c => c.n.toLowerCase().includes(val) || c.c.includes(val)));
     }
 
-    // تشغيل السلايدر تلقائياً
     setInterval(() => {
-        const slides = document
+        const slides = document.querySelectorAll('.slide');
+        let active = document.querySelector('.slide.active');
+        active.classList.remove('active');
+        let next = active.nextElementSibling || slides[0];
+        next.classList.add('active');
+    }, 4000);
+
+    window.onload = init;
+</script>
+</body>
+</html>
