@@ -192,6 +192,74 @@
 
     window.onload = init;
 </script>
+    <style>
+    .market-status {
+        background: var(--white);
+        margin: 20px 5%;
+        border-radius: 15px;
+        padding: 20px;
+        border: 2px solid var(--brand);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .market-title {
+        color: var(--primary);
+        font-weight: bold;
+        border-bottom: 2px solid var(--brand);
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .market-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    .market-item {
+        background: #f9f9f9;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+    }
+    .market-item span { display: block; font-size: 0.8rem; color: #666; }
+    .market-item b { color: var(--brand); font-size: 1rem; }
+</style>
+
+<div class="market-status">
+    <div class="market-title">
+        <span>📊 حالة السوق اليوم</span>
+        <small id="currentDate"></small>
+    </div>
+    <div class="market-grid">
+        <div class="market-item">
+            <span>طن الحديد (استرشادي)</span>
+            <b id="ironPrice">$XXX</b>
+        </div>
+        <div class="market-item">
+            <span>متر الباطون</span>
+            <b id="concretePrice">$XX</b>
+        </div>
+        <div class="market-item">
+            <span>حالة الطقس (بيروت)</span>
+            <b>☀️ 22°C - مناسب للصب</b>
+        </div>
+        <div class="market-item">
+            <span>صرف الدولار</span>
+            <b>L.L 89,500</b>
+        </div>
+    </div>
+</div>
+
+<script>
+    // برمجة تحديث التاريخ تلقائياً في الجزء الجديد
+    const d = new Date();
+    document.getElementById('currentDate').innerText = d.toLocaleDateString('ar-LB');
+    
+    // ملاحظة للمدير: يمكنك مستقبلاً ربط هذه الأرقام بـ API لتتحدث تلقائياً
+    document.getElementById('ironPrice').innerText = "$610"; 
+    document.getElementById('concretePrice').innerText = "$85";
+</script>
+
 </body>
 </html>
  
