@@ -770,7 +770,40 @@
         }
     });
 </script>
+<script>
+    // كود إضافي لتقوية محرك الترجمة وإجبار التغيير
+    document.addEventListener('click', function(e) {
+        // التحقق إذا كان الزر المضغط هو زر اللغة
+        if (e.target && (e.target.id === 'langBtn' || e.target.innerText.includes('English') || e.target.innerText.includes('العربية'))) {
+            
+            setTimeout(() => {
+                const isEn = document.documentElement.dir === 'ltr';
+                
+                // قاموس الطوارئ للكلمات التي لم تترجم
+                const hardFix = {
+                    'الرئيسية': 'Home',
+                    'حسابي': 'Account',
+                    'طلباتي': 'Orders',
+                    'التميز': 'Elite',
+                    'Home': 'الرئيسية',
+                    'Account': 'حسابي',
+                    'Orders': 'طلباتي',
+                    'Elite': 'التميز'
+                };
 
+                // البحث عن كل العناصر التي تحتوي على نصوص مباشرة
+                const allItems = document.querySelectorAll('.nav-label, .label, .footer-nav-item span, a, button');
+                
+                allItems.forEach(item => {
+                    let currentText = item.innerText ? item.innerText.trim() : "";
+                    if (hardFix[currentText]) {
+                        item.innerText = hardFix[currentText];
+                    }
+                });
+            }, 50); // تأخير بسيط جداً لضمان تنفيذ الاتجاه أولاً
+        }
+    });
+</script>
 </body>
 </html>
  
