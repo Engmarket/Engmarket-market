@@ -696,114 +696,43 @@
     <a href="#tendersList" class="footer-nav-item">
         <span class="icon">🌟</span>
 <script>
-    <script>
-    function toggleLang() {
-        const doc = document.documentElement;
-        const btn = document.getElementById('langBtn');
-        const isAr = doc.dir === 'rtl' || doc.dir === ''; // التحقق من الاتجاه الحالي
+   <div id="google_translate_element" style="display:none;"></div>
 
-        // 1. قلب اتجاه الصفحة وتغيير اللغة برمجياً
-        doc.dir = isAr ? 'ltr' : 'rtl';
-        doc.lang = isAr ? 'en' : 'ar';
-
-        // 2. قاموس المصطلحات - تأكد أن الكلمات تطابق المكتوب في موقعك تماماً
-        const dictionary = {
-            'الرئيسية': 'Home',
-            'حسابي': 'Account',
-            'طلباتي': 'Orders',
-            'التميز': 'Elite',
-            'English': 'العربية',
-            'العربية': 'English',
-            'كل لبنان': 'All Lebanon',
-            'بيروت': 'Beirut',
-            'الشمال': 'North',
-            'الجنوب': 'South',
-            'البقاع': 'Beqaa',
-            'ابحث عن شركة أو خدمة...': 'Search for companies...',
-            'أضف طلب مواد الآن': 'Add Material Request',
-            'تواصل مع شركات البناء مباشرة': 'Connect with construction firms directly'
-        };
-
-        // 3. وظيفة البحث والتبديل العميق
-        // نستهدف الأزرار، العناوين، والفقرات، وأيضاً الأزرار السوداء السفلية
-        const elements = document.querySelectorAll('span, a, button, h2, h3, .nav-label, .label, .footer-nav-item span');
-        
-        elements.forEach(el => {
-            const text = el.innerText ? el.innerText.trim() : "";
-            
-            if (isAr) {
-                // من عربي إلى إنجليزي
-                if (dictionary[text]) {
-                    el.innerText = dictionary[text];
-                }
-            } else {
-                // من إنجليزي إلى عربي (البحث عن المفتاح الأصلي)
-                for (let key in dictionary) {
-                    if (dictionary[key] === text) {
-                        el.innerText = key;
-                        break;
-                    }
-                }
-            }
-        });
-
-        // 4. ترجمة خانة البحث (Placeholder)
-        const searchInput = document.querySelector('input[type="text"]');
-        if (searchInput) {
-            searchInput.placeholder = isAr ? 'Search for companies...' : 'ابحث عن شركة أو خدمة...';
-        }
-
-        // 5. تحديث نص الزر العلوي
-        if (btn) {
-            btn.innerText = isAr ? 'العربية' : 'English';
-        }
+<script type="text/javascript">
+    // تهيئة محرك الترجمة العالمي
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'ar',
+            includedLanguages: 'en,ar',
+            autoDisplay: false
+        }, 'google_translate_element');
     }
 
-    // ربط الزر بالوظيفة عند تحميل الصفحة
-    document.addEventListener('DOMContentLoaded', () => {
-        const btn = document.getElementById('langBtn');
-        if (btn) {
-            btn.onclick = (e) => {
-                e.preventDefault();
-                toggleLang();
-            };
-        }
-    });
-</script>
-<script>
-    // كود إضافي لتقوية محرك الترجمة وإجبار التغيير
+    // ربط زر الموقع الخاص بك بمحرك الترجمة
     document.addEventListener('click', function(e) {
-        // التحقق إذا كان الزر المضغط هو زر اللغة
         if (e.target && (e.target.id === 'langBtn' || e.target.innerText.includes('English') || e.target.innerText.includes('العربية'))) {
             
-            setTimeout(() => {
-                const isEn = document.documentElement.dir === 'ltr';
-                
-                // قاموس الطوارئ للكلمات التي لم تترجم
-                const hardFix = {
-                    'الرئيسية': 'Home',
-                    'حسابي': 'Account',
-                    'طلباتي': 'Orders',
-                    'التميز': 'Elite',
-                    'Home': 'الرئيسية',
-                    'Account': 'حسابي',
-                    'Orders': 'طلباتي',
-                    'Elite': 'التميز'
-                };
-
-                // البحث عن كل العناصر التي تحتوي على نصوص مباشرة
-                const allItems = document.querySelectorAll('.nav-label, .label, .footer-nav-item span, a, button');
-                
-                allItems.forEach(item => {
-                    let currentText = item.innerText ? item.innerText.trim() : "";
-                    if (hardFix[currentText]) {
-                        item.innerText = hardFix[currentText];
-                    }
-                });
-            }, 50); // تأخير بسيط جداً لضمان تنفيذ الاتجاه أولاً
+            // البحث عن لغة الصفحة الحالية وتبديلها
+            var iframe = document.querySelector('.goog-te-menu-frame');
+            if (!iframe) {
+                // إذا لم يتم تحميل المترجم بعد، نقوم بتنشيطه
+                var select = document.querySelector('.goog-te-combo');
+                if (select) {
+                    select.value = (document.documentElement.lang === 'en') ? 'ar' : 'en';
+                    select.dispatchEvent(new Event('change'));
+                }
+            }
+            
+            // تبديل اتجاه الصفحة يدوياً لضمان التصميم
+            const isAr = document.documentElement.dir === 'rtl';
+            document.documentElement.dir = isAr ? 'ltr' : 'rtl';
+            document.documentElement.lang = isAr ? 'en' : 'ar';
+            e.target.innerText = isAr ? 'العربية' : 'English';
         }
     });
 </script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
  
