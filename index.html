@@ -698,41 +698,60 @@
 <script>
    <div id="google_translate_element" style="display:none;"></div>
 
-<script type="text/javascript">
-    // تهيئة محرك الترجمة العالمي
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'ar',
-            includedLanguages: 'en,ar',
-            autoDisplay: false
-        }, 'google_translate_element');
-    }
 
-    // ربط زر الموقع الخاص بك بمحرك الترجمة
-    document.addEventListener('click', function(e) {
-        if (e.target && (e.target.id === 'langBtn' || e.target.innerText.includes('English') || e.target.innerText.includes('العربية'))) {
+     <script>
+    // وظيفة التبديل اليدوي القاطع
+    function toggleLang() {
+        const doc = document.documentElement;
+        const btn = document.getElementById('langBtn');
+        
+        // 1. قلب اتجاه الموقع (هذا الجزء نجح معك سابقاً وسنتركه)
+        if (doc.dir === 'rtl' || doc.dir === '') {
+            doc.dir = 'ltr';
+            doc.lang = 'en';
+            if(btn) btn.innerText = 'العربية';
             
-            // البحث عن لغة الصفحة الحالية وتبديلها
-            var iframe = document.querySelector('.goog-te-menu-frame');
-            if (!iframe) {
-                // إذا لم يتم تحميل المترجم بعد، نقوم بتنشيطه
-                var select = document.querySelector('.goog-te-combo');
-                if (select) {
-                    select.value = (document.documentElement.lang === 'en') ? 'ar' : 'en';
-                    select.dispatchEvent(new Event('change'));
-                }
+            // 2. تغيير نصوص الأزرار السفلية يدوياً وبالتحديد
+            const labels = document.querySelectorAll('.nav-label, .label');
+            if(labels.length >= 4) {
+                labels[0].innerText = 'Home';
+                labels[1].innerText = 'Account';
+                labels[2].innerText = 'Orders';
+                labels[3].innerText = 'Elite';
             }
             
-            // تبديل اتجاه الصفحة يدوياً لضمان التصميم
-            const isAr = document.documentElement.dir === 'rtl';
-            document.documentElement.dir = isAr ? 'ltr' : 'rtl';
-            document.documentElement.lang = isAr ? 'en' : 'ar';
-            e.target.innerText = isAr ? 'العربية' : 'English';
+            // 3. تغيير نص زر البحث
+            const searchInput = document.querySelector('input[type="text"]');
+            if(searchInput) searchInput.placeholder = 'Search...';
+
+        } else {
+            doc.dir = 'rtl';
+            doc.lang = 'ar';
+            if(btn) btn.innerText = 'English';
+            
+            // العودة للعربية
+            const labels = document.querySelectorAll('.nav-label, .label');
+            if(labels.length >= 4) {
+                labels[0].innerText = 'الرئيسية';
+                labels[1].innerText = 'حسابي';
+                labels[2].innerText = 'طلباتي';
+                labels[3].innerText = 'التميز';
+            }
+            
+            const searchInput = document.querySelector('input[type="text"]');
+            if(searchInput) searchInput.placeholder = 'ابحث عن شركة أو خدمة...';
+        }
+    }
+
+    // ربط الزر بالوظيفة بشكل إجباري
+    document.addEventListener('DOMContentLoaded', function() {
+        const langBtn = document.getElementById('langBtn');
+        if(langBtn) {
+            langBtn.setAttribute('onclick', 'toggleLang()');
         }
     });
 </script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
+  
 </body>
 </html>
  
