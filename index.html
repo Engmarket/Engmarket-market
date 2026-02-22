@@ -5,63 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eng Market | Global Master</title>
     <style>
-        /* 1. التنسيق الأساسي */
         :root { --primary: #0d1b2a; --brand: #c5a059; --bg: #f4f7f9; --white: #ffffff; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: var(--primary); padding-bottom: 80px; }
 
-        /* 2. الهيدر */
+        /* الهيدر */
         header { background: var(--primary); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--brand); position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 1.6rem; font-weight: 900; color: var(--brand); text-decoration: none; }
         .lang-btn { background: var(--brand); color: var(--primary); border: none; padding: 8px 16px; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
-        /* 3. السلايدر */
+        /* السلايدر */
         .hero { width: 100%; height: 320px; position: relative; overflow: hidden; background: #000; }
         .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1s; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; }
         .slide.active { opacity: 0.6; }
         .slide h2 { color: var(--brand); font-size: 1.8rem; text-align: center; text-shadow: 2px 2px 10px #000; padding: 20px; }
 
-        /* 4. شريط الإعلانات */
+        /* شريط الإعلانات */
         .ad-bar { background: var(--brand); color: var(--primary); padding: 8px 0; font-weight: bold; overflow: hidden; white-space: nowrap; }
         .ad-track { display: inline-block; animation: scroll 20s linear infinite; }
         @keyframes scroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
-        /* 5. البحث والفلترة */
+        /* البحث والفلترة */
         .search-area { background: var(--white); padding: 20px 5%; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        #mainSearch { width: 100%; padding: 14px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; outline: none; box-sizing: border-box; }
+        #mainSearch { width: 100%; padding: 14px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; outline: none; width: 100%; box-sizing: border-box; }
         .tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px 0; scrollbar-width: none; }
         .tab { padding: 8px 20px; background: #eee; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; white-space: nowrap; }
         .tab.active { background: var(--brand); color: white; }
 
-        /* 6. شريط التصنيفات */
+        /* التصنيفات الدائرية */
         .ribbon { display: flex; overflow-x: auto; gap: 20px; padding: 20px 5%; background: var(--white); border-bottom: 1px solid #ddd; scrollbar-width: none; }
         .icon-item { flex: 0 0 auto; text-align: center; width: 85px; cursor: pointer; }
-        .icon-circle { width: 65px; height: 65px; background: var(--white); border: 2.5px solid var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 8px; box-shadow: 0 4px 12px rgba(197,160,89,0.25); transition: 0.3s; }
-        .icon-item:hover .icon-circle { transform: scale(1.1); background: var(--brand); color: white; }
+        .icon-circle { width: 65px; height: 65px; background: var(--white); border: 2.5px solid var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 8px; box-shadow: 0 4px 12px rgba(197,160,89,0.25); }
 
-        /* 7. الشبكة والبطاقات */
+        /* شبكة الشركات */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 30px 5%; }
-        .card { background: var(--white); border-radius: 15px; padding: 25px; border: 1px solid #eee; position: relative; transition: 0.3s; text-align: right; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .verified { position: absolute; top: 15px; left: 15px; background: #27ae60; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
-        .stars { color: #f1c40f; font-size: 0.8rem; margin-bottom: 5px; }
+        .card { background: var(--white); border-radius: 15px; padding: 25px; border: 1px solid #eee; position: relative; transition: 0.3s; }
+        .verified { position: absolute; top: 15px; left: 15px; background: #27ae60; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; }
         .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .btn { padding: 12px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        .btn { padding: 12px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: bold; }
         .btn-call { background: var(--primary); color: white; }
         .btn-wa { background: #25d366; color: white; }
 
-        /* 8. الشريط السفلي الموحد والاحترافي */
-        .fixed-footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #000; height: 70px; display: flex; justify-content: space-around; align-items: center; border-top: 2px solid var(--brand); z-index: 10000; }
-        .footer-nav-item { color: #fff; text-decoration: none; text-align: center; flex: 1; display: flex; flex-direction: column; font-size: 11px; }
-        .footer-nav-item span.icon { font-size: 20px; margin-bottom: 2px; }
-
-        /* 9. بوابات المهندسين والموردين */
-        .portals { padding: 0 5% 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .portal-card { background: var(--primary); color: white; padding: 25px; border-radius: 15px; text-align: center; cursor: pointer; }
-        .portal-card.alt { background: white; color: var(--primary); border: 2px solid var(--primary); }
-
         /* حالة السوق والحاسبة */
-        .market-status, .eng-calc, .ad-request-section, .tenders-board { background: #fff; margin: 20px 5%; padding: 20px; border-radius: 15px; border: 1px solid #ddd; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .market-status, .eng-calc, .ad-request-section, .tenders-board { background: #fff; margin: 20px 5%; padding: 25px; border-radius: 15px; border: 1px solid #ddd; }
+        .market-title { display: flex; justify-content: space-between; border-bottom: 2px solid var(--brand); padding-bottom: 10px; margin-bottom: 15px; font-weight: bold; }
         .tenders-board { background: var(--primary); color: white; }
+
+        /* الشريط الأسود السفلي (المهم جداً) */
+        .fixed-footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #000; height: 70px; display: flex; justify-content: space-around; align-items: center; border-top: 2px solid var(--brand); z-index: 10000; }
+        .footer-nav-item { color: #fff; text-decoration: none; text-align: center; flex: 1; display: flex; flex-direction: column; }
+        .footer-nav-item span.icon { font-size: 20px; }
+        .footer-nav-item .label { font-size: 11px; font-weight: bold; margin-top: 2px; }
     </style>
 </head>
 <body>
@@ -74,13 +67,13 @@
 <div class="hero" id="slider"></div>
 
 <div class="ad-bar">
-    <div class="ad-track" id="adText">📢 إعلان: شركة 'ميتالكو' تقدم خصومات خاصة للمهندسين المسجلين عبر منصتنا - تواصل معنا للإعلان هنا 📢</div>
+    <div class="ad-track">📢 إعلان: شركة 'ميتالكو' تقدم خصومات خاصة للمهندسين المسجلين عبر منصتنا - تواصل معنا للإعلان هنا 📢</div>
 </div>
 
 <div class="search-area">
     <input type="text" id="mainSearch" onkeyup="doSearch()" placeholder="ابحث عن شركة، خدمة، أو اختصاص...">
     <div class="tabs">
-        <button class="tab active" onclick="filterLoc('الكل', this)" id="tabAll">كل لبنان</button>
+        <button class="tab active" onclick="filterLoc('الكل', this)" id="btnAll">كل لبنان</button>
         <button class="tab" onclick="filterLoc('بيروت', this)">بيروت</button>
         <button class="tab" onclick="filterLoc('الشمال', this)">الشمال</button>
         <button class="tab" onclick="filterLoc('الجنوب', this)">الجنوب</button>
@@ -89,31 +82,40 @@
 
 <div class="ribbon" id="categoryRibbon"></div>
 
-<div class="grid" id="companyGrid"></div>
-
 <div class="market-status">
-    <div style="display:flex; justify-content:space-between; border-bottom:2px solid var(--brand); padding-bottom:10px; margin-bottom:15px;">
-        <span id="marketTitle">📊 حالة السوق اليوم</span>
+    <div class="market-title">
+        <span id="txtMarket">📊 حالة السوق اليوم</span>
         <small id="currentDate"></small>
     </div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; text-align:center;">
-        <div style="background:#f9f9f9; padding:10px; border-radius:8px;">
-            <span id="steelText">طن الحديد</span> <br> <b id="ironPrice">$610</b>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; text-align:center;">
+        <div style="background:#f9f9f9; padding:15px; border-radius:10px;">
+            <span id="txtIron">طن الحديد</span><br><b id="ironPrice">$610</b>
         </div>
-        <div style="background:#f9f9f9; padding:10px; border-radius:8px;">
-            <span id="concreteText">متر الباطون</span> <br> <b id="concretePrice">$85</b>
+        <div style="background:#f9f9f9; padding:15px; border-radius:10px;">
+            <span id="txtConcrete">متر الباطون</span><br><b id="concretePrice">$85</b>
         </div>
     </div>
 </div>
 
+<div class="grid" id="companyGrid"></div>
+
 <div class="eng-calc">
-    <h3 style="margin-top:0" id="calcTitle">🧮 حاسبة كمية الباطون</h3>
+    <h3 id="txtCalcTitle">🧮 حاسبة تقدير كمية الباطون</h3>
     <div style="display:flex; gap:10px;">
-        <input type="number" id="area" placeholder="المساحة">
-        <input type="number" id="depth" placeholder="السمك">
-        <button style="background:var(--primary); color:white; border:none; padding:10px; border-radius:5px;" onclick="calculateConcrete()">احسب</button>
+        <input type="number" id="area" placeholder="المساحة م2">
+        <input type="number" id="depth" placeholder="السمك سم">
+        <button onclick="calculateConcrete()" style="background:var(--primary); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">احسب</button>
     </div>
-    <p id="calcResult" style="margin-top:10px; font-weight:bold; color:var(--brand)"></p>
+    <p id="calcResult" style="margin-top:15px; color:var(--brand); font-weight:bold;"></p>
+</div>
+
+<div class="tenders-board">
+    <h3 id="txtTenders" style="color:var(--brand)">🏗️ طلبات مواد عاجلة</h3>
+    <div id="tendersList">
+        <div style="background:rgba(255,255,255,0.1); padding:10px; margin-bottom:5px; border-radius:5px;">
+            مطلوب توريد خشب طوبار - بعبدا
+        </div>
+    </div>
 </div>
 
 <div class="fixed-footer-bar">
@@ -127,4 +129,86 @@
     </a>
     <a href="#adPortal" class="footer-nav-item">
         <span class="icon">📝</span>
-        <span class="label" data-ar="طلبات
+        <span class="label" data-ar="طلباتي" data-en="Orders">طلباتي</span>
+    </a>
+    <a href="#" class="footer-nav-item">
+        <span class="icon">🌟</span>
+        <span class="label" data-ar="التميز" data-en="Elite">التميز</span>
+    </a>
+</div>
+
+<script>
+    const companies = [
+        { n: "ميتالكو ستيل", c: "حديد", l: "بيروت", p: "96103761784", d: "حديد بناء مبروم قياسات عالمية.", v: true, r: 5 },
+        { n: "صقر الشمال", c: "خشب", l: "الشمال", p: "96103000000", d: "أخشاب سويدية وزان طبيعي.", v: true, r: 4 }
+    ];
+
+    const cats = [{n:"حديد", i:"🏗️"}, {n:"باطون", i:"🚚"}, {n:"خشب", i:"🪵"}, {n:"كهرباء", i:"💡"}, {n:"ديكور", i:"🛋️"}];
+
+    const slides = [
+        { t: "أكبر تجمع للموردين في لبنان", img: "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?w=800" },
+        { t: "خدمات هندسية متكاملة", img: "https://images.unsplash.com/photo-1503387762-592dee58c460?w=800" }
+    ];
+
+    function init() {
+        document.getElementById('slider').innerHTML = slides.map((s,i)=>`<div class="slide ${i==0?'active':''}" style="background-image:url('${s.img}')"><h2>${s.t}</h2></div>`).join('');
+        document.getElementById('categoryRibbon').innerHTML = cats.map(c=>`<div class="icon-item" onclick="filterCat('${c.n}')"><div class="icon-circle">${c.i}</div><span>${c.n}</span></div>`).join('');
+        render(companies);
+        document.getElementById('currentDate').innerText = new Date().toLocaleDateString('ar-LB');
+        setInterval(()=>{
+            let a = document.querySelector('.slide.active');
+            a.classList.remove('active');
+            (a.nextElementSibling || document.querySelectorAll('.slide')[0]).classList.add('active');
+        }, 4000);
+    }
+
+    function render(data) {
+        document.getElementById('companyGrid').innerHTML = data.map(c=>`
+            <div class="card">
+                ${c.v?'<span class="verified">موثق ✓</span>':''}
+                <div style="color:var(--brand)">📍 ${c.l} | ${c.c}</div>
+                <h3>${c.n}</h3>
+                <p style="font-size:0.8rem; color:#666">${c.d}</p>
+                <div class="actions">
+                    <a href="tel:${c.p}" class="btn btn-call">اتصال</a>
+                    <a href="https://wa.me/${c.p}" class="btn btn-wa">واتساب</a>
+                </div>
+            </div>`).join('');
+    }
+
+    function toggleLang() {
+        const doc = document.documentElement;
+        const isAr = doc.dir === 'rtl';
+        doc.dir = isAr ? 'ltr' : 'rtl';
+        document.getElementById('langBtn').innerText = isAr ? 'العربية' : 'English';
+        
+        // ترجمة الشريط السفلي
+        document.querySelectorAll('.footer-nav-item .label').forEach(el => {
+            el.innerText = isAr ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+        });
+
+        // ترجمة العناوين
+        document.getElementById('mainSearch').placeholder = isAr ? 'Search for companies...' : 'ابحث عن شركة، خدمة، أو اختصاص...';
+        document.getElementById('txtMarket').innerText = isAr ? '📊 Market Today' : '📊 حالة السوق اليوم';
+        document.getElementById('txtIron').innerText = isAr ? 'Steel Ton' : 'طن الحديد';
+        document.getElementById('txtConcrete').innerText = isAr ? 'Concrete Meter' : 'متر الباطون';
+        document.getElementById('btnAll').innerText = isAr ? 'All Lebanon' : 'كل لبنان';
+        document.getElementById('txtCalcTitle').innerText = isAr ? '🧮 Concrete Calculator' : '🧮 حاسبة تقدير كمية الباطون';
+    }
+
+    function calculateConcrete() {
+        const a = document.getElementById('area').value;
+        const d = document.getElementById('depth').value;
+        if(a && d) document.getElementById('calcResult').innerText = `الكمية: ${(a * d / 100).toFixed(2)} متر مكعب`;
+    }
+
+    function doSearch() {
+        const v = document.getElementById('mainSearch').value.toLowerCase();
+        render(companies.filter(c => c.n.toLowerCase().includes(v) || c.c.includes(v)));
+    }
+
+    window.onload = init;
+</script>
+</body>
+</html>
+ 
