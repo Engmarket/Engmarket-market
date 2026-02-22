@@ -114,7 +114,7 @@
     ];
 
     const cats = [
-        {n:"حديد", i:"🏗️"}, {n:"باطون", i:"🚚"}, {n:"خشب", i:"🪵"}, {n:"رخام", i:"🏛️"}, 
+        {n:"حديد", i:"🏗️"}, {n:"باطون", i:"🚚"}, {n:"خشب", i:"🪵"}, {n:"رخام", i:"🏛️"},
         {n:"ألمنيوم", i:"🪟"}, {n:"مصاعد", i:"🛗"}, {n:"طاقة", i:"☀️"}, {n:"دهان", i:"🎨"},
         {n:"صحي", i:"🚿"}, {n:"كهرباء", i:"💡"}, {n:"ديكور", i:"🛋️"}, {n:"تكييف", i:"❄️"},
         {n:"عزل", i:"🛡️"}, {n:"زجاج", i:"💎"}, {n:"بلاط", i:"🧱"}
@@ -141,7 +141,7 @@
                 <div class="icon-circle">${c.i}</div>
                 <span>${c.n}</span>
             </div>`).join('');
-        
+       
         render(companies);
         startSlider();
     }
@@ -254,12 +254,12 @@
     // برمجة تحديث التاريخ تلقائياً في الجزء الجديد
     const d = new Date();
     document.getElementById('currentDate').innerText = d.toLocaleDateString('ar-LB');
-    
+   
     // ملاحظة للمدير: يمكنك مستقبلاً ربط هذه الأرقام بـ API لتتحدث تلقائياً
-    document.getElementById('ironPrice').innerText = "$610"; 
+    document.getElementById('ironPrice').innerText = "$610";
     document.getElementById('concretePrice').innerText = "$85";
 </script>
-    
+   
 <style>
     .ad-request-section {
         background: #fff;
@@ -311,7 +311,7 @@
 <div class="ad-request-section" id="adPortal">
     <h3>🖼️ طلب إعلان أو تعديل بيانات</h3>
     <p style="font-size: 0.85rem; color: #666;">يمكنك إرسال بيانات شركتك، الصور، أو طلب تعديل ليتم نشره في خانة الإعلانات أو الدليل.</p>
-    
+   
     <div class="form-group">
         <label>اسم الشركة</label>
         <input type="text" id="compName" placeholder="أدخل اسم شركتك الرسمي">
@@ -440,7 +440,7 @@
         scrollbar-width: none;
     }
     .olx-filter-bar::-webkit-scrollbar { display: none; }
-    
+   
     .olx-filter-bar.visible {
         transform: translateY(0);
     }
@@ -496,7 +496,7 @@
     window.addEventListener('scroll', function() {
         const filter = document.getElementById('smartFilter');
         const count = document.getElementById('resCount');
-        
+       
         if (window.scrollY > 300) {
             filter.classList.add('visible');
             count.style.display = 'block';
@@ -704,13 +704,13 @@
     function toggleLang() {
         const doc = document.documentElement;
         const btn = document.getElementById('langBtn');
-        
+       
         // 1. قلب اتجاه الموقع (هذا الجزء نجح معك سابقاً وسنتركه)
         if (doc.dir === 'rtl' || doc.dir === '') {
             doc.dir = 'ltr';
             doc.lang = 'en';
             if(btn) btn.innerText = 'العربية';
-            
+           
             // 2. تغيير نصوص الأزرار السفلية يدوياً وبالتحديد
             const labels = document.querySelectorAll('.nav-label, .label');
             if(labels.length >= 4) {
@@ -719,7 +719,7 @@
                 labels[2].innerText = 'Orders';
                 labels[3].innerText = 'Elite';
             }
-            
+           
             // 3. تغيير نص زر البحث
             const searchInput = document.querySelector('input[type="text"]');
             if(searchInput) searchInput.placeholder = 'Search...';
@@ -728,7 +728,7 @@
             doc.dir = 'rtl';
             doc.lang = 'ar';
             if(btn) btn.innerText = 'English';
-            
+           
             // العودة للعربية
             const labels = document.querySelectorAll('.nav-label, .label');
             if(labels.length >= 4) {
@@ -737,7 +737,7 @@
                 labels[2].innerText = 'طلباتي';
                 labels[3].innerText = 'التميز';
             }
-            
+           
             const searchInput = document.querySelector('input[type="text"]');
             if(searchInput) searchInput.placeholder = 'ابحث عن شركة أو خدمة...';
         }
@@ -751,7 +751,6 @@
         }
     });
 </script>
-  
+ 
 </body>
 </html>
- 
